@@ -1,0 +1,153 @@
+{
+  "version": 1,
+  "projectId": "000537d7-a409-4dca-b835-527d5fad3e13",
+  "updatedAt": "2026-09-27T11:19:03.589Z",
+  "assets": [
+    {
+      "id": "9fe97ade-9070-461d-ad43-d5b96f9da04a",
+      "name": "background-e8322dd33de2-c889663d-693f-4f88-ab51-761d43d6bcb7",
+      "kind": "image",
+      "source": "generated",
+      "relativePath": "public/assets/images/background-e8322dd33de2-c889663d-693f-4f88-ab51-761d43d6bcb7.png",
+      "mimeType": "image/png",
+      "size": 624595,
+      "sha256": "e8322dd33de2193d3a4e39a3d61b076d22e33f9d5c74cf0d3412eda1db585632",
+      "createdAt": "2026-09-27T11:17:58.372Z",
+      "prompt": "统一美术风格：Bright, cheerful pixel art style. High contrast, clear silhouettes. Palette should evoke cold but friendly environments (whites, light blues, cyans) with warm accents for collectibles (orange/yellow fish). Characters and props should be distinct and easily readable against the scrolling background.。统一色板：#FFFFFF、#E0F7FA、#B2EBF2、#4DD0E1、#00ACC1、#FF9800、#FFC107、#37474F。用途是真正可玩的2D游戏素材，不是海报或界面截图。无文字、无logo、无水印。 只绘制游戏环境背景：Scrolling ice field. Flat horizon line. Light blue sky gradient. White/light-blue snow ground with subtle texture variations. No interactive elements in the background image itself.。构图适合landscape玩法，为活动物体留出清楚的空间。背景中禁止出现玩家、敌人、金币、道具或其他可交互物体。",
+      "provider": "Alibaba Cloud:Qwen Image 3.0",
+      "metadata": {
+        "model": "qwen-image-3.0",
+        "presetId": "qwen-image-3",
+        "mediaGeneration": true,
+        "role": "background",
+        "subjectId": "background"
+      }
+    },
+    {
+      "id": "86a5ca5a-a344-4c6f-91cb-56fc3bf6e2f1",
+      "name": "sprites-724fce71-5c825dc1552f-f98405b6-26e8-4d7e-bf9e-543bc033b793",
+      "kind": "image",
+      "source": "generated",
+      "relativePath": "public/assets/images/sprites-724fce71-5c825dc1552f-f98405b6-26e8-4d7e-bf9e-543bc033b793.png",
+      "mimeType": "image/png",
+      "size": 383812,
+      "sha256": "5c825dc1552f8b409fbfa139d0410ed777313aa12c259408cbc48835348d6c4a",
+      "createdAt": "2026-09-27T11:19:03.445Z",
+      "prompt": "统一美术风格：Bright, cheerful pixel art style. High contrast, clear silhouettes. Palette should evoke cold but friendly environments (whites, light blues, cyans) with warm accents for collectibles (orange/yellow fish). Characters and props should be distinct and easily readable against the scrolling background.。统一色板：#FFFFFF、#E0F7FA、#B2EBF2、#4DD0E1、#00ACC1、#FF9800、#FFC107、#37474F。用途是真正可玩的2D游戏素材，不是海报或界面截图。无文字、无logo、无水印。 制作严格均匀的2列×2行精灵图集，每个格子正方形、大小相等，不画网格线。纯白色#FFFFFF平坦背景，无阴影，无地面，无环境。每格只画一个完整的独立主体的一种姿势，禁止在一个格子内并排画多个角色、多个姿势或多枚道具。只允许每格一个形象，每个姿势分别占一个格子。主体居中，完整落在自己格子中央70%范围内，不跨格，不裁切。相同角色不同动作尺寸、视角、落脚位置完全一致。按从左到右、从上到下顺序： 第1行第1列：A cute, bright pixel-art penguin standing upright. Simple black body, white belly, orange beak and feet. Distinctive silhouette suitable for small resolution.，动作姿势A 第1行第2列：A cute, bright pixel-art penguin standing upright. Simple black body, white belly, orange beak and feet. Distinctive silhouette suitable for small resolution.，动作姿势B，动作与A清楚不同，角色外形与尺寸保持相同 第2行第1列：A jagged, translucent light-blue ice block. Sharp edges, high contrast against the snow background. Static object.，清楚完整的静态形象 第2行第2列：A small, bright orange/yellow pixel-art fish. Friendly appearance, clearly distinguishable from obstacles.，清楚完整的静态形象 剩余格子留纯白。",
+      "provider": "Alibaba Cloud:Qwen Image 3.0",
+      "metadata": {
+        "model": "qwen-image-3.0",
+        "presetId": "qwen-image-3",
+        "mediaGeneration": true,
+        "role": "sprite-atlas-source",
+        "columns": 2,
+        "rows": 2,
+        "subjects": "penguin-player,ice-block-obstacle,fish-collectible"
+      }
+    },
+    {
+      "id": "aed60961-0086-4685-8568-76f7581d2884",
+      "name": "penguin-player-0",
+      "kind": "image",
+      "source": "generated",
+      "relativePath": "public/assets/images/penguin-player-0.png",
+      "mimeType": "image/png",
+      "size": 104202,
+      "sha256": "9a3e8d88e88f15120b0d64c5f0a022cbdcd8b81c2da5267f7fdf87025a44ddd4",
+      "createdAt": "2026-09-27T11:19:03.516Z",
+      "provider": "Alibaba Cloud:Qwen Image 3.0",
+      "metadata": {
+        "role": "player",
+        "subjectId": "penguin-player",
+        "frame": 0,
+        "frameCount": 2,
+        "frameMs": 180,
+        "derivedFrom": "public/assets/images/sprites-724fce71-5c825dc1552f-f98405b6-26e8-4d7e-bf9e-543bc033b793.png",
+        "targetFps": 60,
+        "sourceAnimationFps": 5.555555555555555,
+        "durationMs": 360,
+        "timingMode": "time-based",
+        "variant": "shared-60fps",
+        "animationGroup": "penguin-player"
+      }
+    },
+    {
+      "id": "2d50c07f-aefe-4a43-a624-ab4cb5c89a42",
+      "name": "penguin-player-1",
+      "kind": "image",
+      "source": "generated",
+      "relativePath": "public/assets/images/penguin-player-1.png",
+      "mimeType": "image/png",
+      "size": 103243,
+      "sha256": "f3e8a50ebaf021c19e06c6f7edda14d47d32272d88e06a0d0f01259978bbde93",
+      "createdAt": "2026-09-27T11:19:03.542Z",
+      "provider": "Alibaba Cloud:Qwen Image 3.0",
+      "metadata": {
+        "role": "player",
+        "subjectId": "penguin-player",
+        "frame": 1,
+        "frameCount": 2,
+        "frameMs": 180,
+        "derivedFrom": "public/assets/images/sprites-724fce71-5c825dc1552f-f98405b6-26e8-4d7e-bf9e-543bc033b793.png",
+        "targetFps": 60,
+        "sourceAnimationFps": 5.555555555555555,
+        "durationMs": 360,
+        "timingMode": "time-based",
+        "variant": "shared-60fps",
+        "animationGroup": "penguin-player"
+      }
+    },
+    {
+      "id": "dd19a953-20c8-46ed-a794-8df605da9068",
+      "name": "ice-block-obstacle-0",
+      "kind": "image",
+      "source": "generated",
+      "relativePath": "public/assets/images/ice-block-obstacle-0.png",
+      "mimeType": "image/png",
+      "size": 123562,
+      "sha256": "3e55fb2e109d3e8e01592eea1d5020ba73969241d27d79caa155b92183fd4f70",
+      "createdAt": "2026-09-27T11:19:03.569Z",
+      "provider": "Alibaba Cloud:Qwen Image 3.0",
+      "metadata": {
+        "role": "object",
+        "subjectId": "ice-block-obstacle",
+        "frame": 0,
+        "frameCount": 1,
+        "frameMs": 180,
+        "derivedFrom": "public/assets/images/sprites-724fce71-5c825dc1552f-f98405b6-26e8-4d7e-bf9e-543bc033b793.png",
+        "targetFps": 60,
+        "sourceAnimationFps": 5.555555555555555,
+        "durationMs": 180,
+        "timingMode": "time-based",
+        "variant": "shared-60fps",
+        "animationGroup": "ice-block-obstacle"
+      }
+    },
+    {
+      "id": "8da64ff8-e934-4034-8d8c-18a20e941cb4",
+      "name": "fish-collectible-0",
+      "kind": "image",
+      "source": "generated",
+      "relativePath": "public/assets/images/fish-collectible-0.png",
+      "mimeType": "image/png",
+      "size": 80103,
+      "sha256": "d393e5b144cc5c65151c5d2d8d7bbd8f47f9336a82d024451b8e06d51355cf15",
+      "createdAt": "2026-09-27T11:19:03.589Z",
+      "provider": "Alibaba Cloud:Qwen Image 3.0",
+      "metadata": {
+        "role": "pickup",
+        "subjectId": "fish-collectible",
+        "frame": 0,
+        "frameCount": 1,
+        "frameMs": 180,
+        "derivedFrom": "public/assets/images/sprites-724fce71-5c825dc1552f-f98405b6-26e8-4d7e-bf9e-543bc033b793.png",
+        "targetFps": 60,
+        "sourceAnimationFps": 5.555555555555555,
+        "durationMs": 180,
+        "timingMode": "time-based",
+        "variant": "shared-60fps",
+        "animationGroup": "fish-collectible"
+      }
+    }
+  ]
+}

@@ -1,0 +1,213 @@
+{
+  "at": "2026-09-27T18:40:59.836Z",
+  "deployment": "dpt9yxwoimkh",
+  "origin": "https://ludoready.bleakbelladonna.com",
+  "function": {
+    "name": "ludoready-worker",
+    "region": "ap-guangzhou",
+    "runtime": "Nodejs20.19",
+    "status": "Active",
+    "memory": 1024,
+    "timeout": 1800,
+    "async": "TRUE",
+    "triggers": [
+      {
+        "type": "http",
+        "name": "9fflihx6ez",
+        "enable": 1
+      },
+      {
+        "type": "timer",
+        "name": "ludoready-queue",
+        "enable": 1,
+        "cron": "0 */1 * * * * *"
+      }
+    ]
+  },
+  "browser": {
+    "runtime": {
+      "node": "v20.19.3",
+      "platform": "linux",
+      "arch": "x64",
+      "glibc": "2.28"
+    },
+    "version": "143.0.7499.0",
+    "text": "森林金币乐园 · 中文画面",
+    "multipleContexts": true
+  },
+  "storage": {
+    "binaryBytes": 6,
+    "binaryEqual": true,
+    "jsonEqual": true
+  },
+  "paidPackage": {
+    "kind": "SCF备案资源包",
+    "eventFunctions": true,
+    "started": "2026-08-31",
+    "expires": "2031-08-31",
+    "priceCny": 110
+  },
+  "completeModelFlow": "passed",
+  "initialRun": {
+    "id": "5e4a0dad-0913-4c32-9a66-6efb4ff05894",
+    "status": "failed",
+    "cause": "terminal waits 34000ms with declared stepTimeoutMs 15000; Host correctly aborts",
+    "score": 75,
+    "hostOnlyError": {
+      "kind": "timeout",
+      "message": "试玩步骤 terminal 超过 15000ms 时限"
+    },
+    "modelArtCompleted": true
+  },
+  "publication": {
+    "id": "5e4a0dad-0913-4c32-9a66-6efb4ff05894",
+    "revision": 1,
+    "archiveBytes": 1441371,
+    "assetFiles": 6,
+    "originalDraftAssetsUnchanged": true,
+    "host": {
+      "score": 100,
+      "verdict": "pass",
+      "checks": [
+        {
+          "id": "load",
+          "status": "pass"
+        },
+        {
+          "id": "runtime-errors",
+          "status": "pass"
+        },
+        {
+          "id": "visible-surface",
+          "status": "pass"
+        },
+        {
+          "id": "input-response",
+          "status": "pass"
+        },
+        {
+          "id": "continuous-render",
+          "status": "pass"
+        },
+        {
+          "id": "restart",
+          "status": "pass"
+        }
+      ],
+      "errors": []
+    },
+    "review": {
+      "verdict": "pass",
+      "summary": "游戏完全符合用户需求：标题“果园小熊”正确，左右方向键移动小熊接苹果逻辑正常，30秒倒计时结束后显示得分画面。素材风格统一且比例保持良好。试玩报告中的超时问题已修复（maxRunMs=180000, stepTimeoutMs=30000），所有步骤均在时限内完成，自动试玩流程顺畅，包含开始、暂停、恢复、结束及重启的完整闭环验证。",
+      "findings": [],
+      "regenerateArt": false
+    }
+  },
+  "checksPassed": 28,
+  "webTypecheck": "pass",
+  "publicGamePrivateValueScan": "pass",
+  "temporaryProbeFunctionRemoved": true,
+  "completedAt": "2026-09-27T19:05:45.846Z",
+  "continuedRevision": {
+    "revision": 2,
+    "host": {
+      "score": 100,
+      "verdict": "pass",
+      "checks": [
+        {
+          "id": "load",
+          "status": "pass"
+        },
+        {
+          "id": "runtime-errors",
+          "status": "pass"
+        },
+        {
+          "id": "visible-surface",
+          "status": "pass"
+        },
+        {
+          "id": "input-response",
+          "status": "pass"
+        },
+        {
+          "id": "continuous-render",
+          "status": "pass"
+        },
+        {
+          "id": "restart",
+          "status": "pass"
+        }
+      ],
+      "errors": []
+    },
+    "review": {
+      "verdict": "pass",
+      "summary": "本次迭代成功将中文标题更新为“果园小熊挑战”，且严格保留了所有原有玩法数值、操作逻辑及试玩路线。代码中游戏时长锁定为30秒，UI界面（得分、剩余时间、状态）显示正常，暂停/恢复与重开功能运行流畅。视觉素材复用合理，小熊两帧动画切换清晰，苹果接取反馈明确，符合用户要求。",
+      "findings": [
+        "检查实际源码 `html` 中的 `<h1 class=\"title\">` 标签，确认文本已修改为“果园小熊挑战”。",
+        "检查 JS 常量 `ROUND_SECONDS = 30` 及倒计时逻辑 `timeLeft -= dt`，确保一局固定30秒，无提前结束或无限模式。",
+        "验证 `drawBear()` 函数中的帧切换逻辑 `Math.floor(bearFrameT*1000/180)%2`，结合提供的两张不同姿态的小熊图片，确认为有效的2D关键帧动画。",
+        "对照 Host Report 截图：`before.png` 显示新标题；`move.png` 和 `primary.png` 显示游戏进行中且有分数变化；`paused.png` 显示“已暂停”覆盖层；`restart.png` 显示重置后的初始状态，证明核心循环完整。"
+      ],
+      "regenerateArt": false
+    },
+    "originalAssetsUnchanged": true,
+    "previousVersionUsableDuringModification": true,
+    "publicFilesMatchDownload": true,
+    "archiveBytes": 1441323,
+    "files": 10,
+    "privateValueScan": "pass"
+  },
+  "flowChecks": [
+    {
+      "name": "真实新建项目并保存独立创作者身份",
+      "at": "2026-09-27T18:38:52.200Z",
+      "revision": 0
+    },
+    {
+      "name": "在同一失败项目修复明确的试玩时限冲突并复用素材",
+      "at": "2026-09-27T18:54:49.038Z",
+      "revision": 1
+    },
+    {
+      "name": "公开预览及全部游戏文件与创作者下载内容一致",
+      "at": "2026-09-27T18:59:19.856Z",
+      "files": 10,
+      "assets": 6,
+      "archiveBytes": 1441371,
+      "delivery": "zip"
+    },
+    {
+      "name": "无 Cookie 下载返回404",
+      "at": "2026-09-27T18:59:20.224Z"
+    },
+    {
+      "name": "同一项目提交一次标题修改",
+      "at": "2026-09-27T19:00:10.087Z",
+      "revision": 2
+    },
+    {
+      "name": "制作中旧版本仍可公开试玩和授权下载",
+      "at": "2026-09-27T19:00:41.615Z",
+      "publishedRevision": 1
+    },
+    {
+      "name": "公开预览及全部游戏文件与创作者下载内容一致",
+      "at": "2026-09-27T19:04:44.145Z",
+      "files": 10,
+      "assets": 6,
+      "archiveBytes": 1441323,
+      "delivery": "zip"
+    },
+    {
+      "name": "新标题已发布、版本递增且全部素材哈希不变",
+      "at": "2026-09-27T19:04:44.145Z",
+      "publishedRevision": 2
+    },
+    {
+      "name": "无 Cookie 下载返回404",
+      "at": "2026-09-27T19:04:44.524Z"
+    }
+  ]
+}

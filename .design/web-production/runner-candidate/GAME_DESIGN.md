@@ -1,0 +1,25 @@
+# 企鹅冰原跑酷
+
+明亮像素风横向跑酷游戏。玩家控制企鹅在冰原上奔跑，通过左右移动调整位置，跳跃避开冰块，收集小鱼得分。游戏时长约20秒，固定障碍顺序，支持键盘与触屏操作。本版本重点修复主体绘制比例拉伸问题，确保视觉与碰撞逻辑分离且准确。
+
+1. 企鹅在屏幕左侧区域水平移动（受限范围），背景与障碍物从右向左滚动。
+2. 空格键/跳跃按钮使企鹅向上跳跃，落地后恢复站立状态。
+3. 碰到冰块扣1点血量并触发短暂无敌闪烁；血量归零则失败。
+4. 吃到小鱼增加10分，并产生粒子特效。
+5. 存活满20秒即胜利。
+6. UI层显示标题、得分、剩余时间、血量及暂停/开始/结束提示。
+
+键盘：← → 左右微调位置，Space 跳跃，P 暂停/继续，R 重新开始（仅在游戏结束/胜利时）。触屏：点击底部左/右箭头移动，点击跳跃按钮起跳。
+
+高饱和度明亮像素风格。主体轮廓清晰，色彩对比强烈。严格保持素材原始宽高比进行缩放，禁止非等比拉伸。企鹅为经典黑白橙配色，冰块为半透明青蓝色，小鱼为鲜艳橙色。背景为广阔的白色雪原与淡蓝天空，营造寒冷但清新的氛围。UI文字使用无衬线字体，确保可读性。
+
+<animation_needs_assessment generation="reuse" presentation="2d">
+- rationale: 现有素材包含企鹅的两帧行走/跑步动画（penguin-player-0.png, penguin-player-1.png），足以表现地面移动状态。冰块和小鱼为静态物体，无需额外帧。鉴于已有两帧连贯动作且用户明确要求保留现有玩法和图片不重新生成，选择重用。关键在于修正代码中的绘制尺寸以匹配512x512源图的等比缩放，而非改变源图。
+- subjects_and_states: Penguin (Run Cycle: Frame 0 <-> Frame 1), Ice Block (Static), Fish (Static).
+- evidence: public/assets/images/penguin-player-0.png, public/assets/images/penguin-player-1.png. Existing code references these paths.
+- production_path: Use existing PNGs. Implement time-based frame switching in the update loop for the running animation. Ensure drawImage uses correct aspect ratio scaling (e.g., 80x80 for penguin visual) separate from hitbox logic.
+- interaction_motion: Horizontal movement via x-position interpolation. Vertical jump via gravity physics. Collision feedback via alpha flashing and particle burst.
+- runtime_evidence: Verify frame index toggles every ~150ms during gameplay state. Observe vertical position change on Space key press. Verify no visual stretching occurs when drawing entities.
+</animation_needs_assessment>
+
+目标帧率：60 FPS，使用时间步进。

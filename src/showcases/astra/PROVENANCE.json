@@ -1,0 +1,9 @@
+{
+  "model": "gpt-6-astra",
+  "reasoning_effort": "xhigh",
+  "tool": "Codex",
+  "verification": "Local turn_context fields from the implementation turn",
+  "date": "2026-09-22",
+  "process": "Iterative coding, visual inspection, and corrections. Not a one-shot benchmark.",
+  "assets": "Procedural Three.js geometry. Original ToanKhonTech brand assets. No generated bitmap assets."
+}

@@ -1,0 +1,9 @@
+{
+  "name": "ludoready-state-bridge",
+  "version": "0.1.0",
+  "private": true,
+  "main": "state.cjs",
+  "dependencies": {
+    "@cloudbase/node-sdk": "3.18.3"
+  }
+}

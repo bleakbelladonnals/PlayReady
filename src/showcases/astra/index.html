@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <meta name="theme-color" content="#e7eff1">
+  <title>鹈鹕骑车 · GPT Astra</title>
+  <link rel="stylesheet" href="./showcase.css">
+</head>
+<body>
+<main id="app">
+  <header><h1>鹈鹕骑车</h1><span>GPT-6 Astra · xhigh</span></header>
+  <div id="stage" tabindex="0" role="img" aria-label="鹈鹕在海岸骑自行车的三维场景，拖动旋转视角，滚轮缩放"></div>
+  <div class="scene-note"><span class="live-dot"></span><span id="scene-label">海岸 · 日落</span></div>
+  <div class="hint">拖动旋转 <span>·</span> 滚轮缩放 <span>·</span> Esc 返回</div>
+  <div class="controls" role="group" aria-label="场景控制">
+    <div class="control-group"><span class="control-label">场景</span><div class="segmented"><button id="coast" class="selected" aria-pressed="true">海岸</button><button id="studio" aria-pressed="false">摄影棚</button></div></div>
+    <div class="control-group"><span class="control-label">光线</span><div class="segmented"><button id="day" aria-pressed="false">白天</button><button id="sunset" class="selected" aria-pressed="true">日落</button><button id="night" aria-pressed="false">夜晚</button></div></div>
+    <div class="control-group"><span class="control-label">速度</span><div class="segmented"><button id="cruise" class="selected" aria-pressed="true">慢骑</button><button id="sprint" aria-pressed="false">快骑</button></div></div>
+    <div class="control-group motion-group"><span class="control-label">镜头与动作</span><div class="motion-buttons"><button id="orbit" aria-pressed="false">自动环绕</button><button id="pause" aria-pressed="false" aria-label="暂停骑行"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M5 3v10M11 3v10"/></svg><span>暂停</span></button></div></div>
+  </div>
+  <div id="status" class="sr-only" role="status" aria-live="polite"></div>
+  <div id="error" hidden>当前设备未能启动三维画面，请开启硬件加速后重新打开。</div>
+</main>
+<script defer src="./showcase.js"></script>
+</body>
+</html>

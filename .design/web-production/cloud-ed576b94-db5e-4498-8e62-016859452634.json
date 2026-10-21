@@ -1,0 +1,126 @@
+{
+  "time": "2026-09-27T20:55:52.535Z",
+  "id": "ed576b94-db5e-4498-8e62-016859452634",
+  "revision": 1,
+  "status": "complete",
+  "foundation": {
+    "kind": "flappy"
+  },
+  "roles": [
+    "planner",
+    "production-foundation",
+    "implementer",
+    "preflight",
+    "playtest",
+    "reviewer"
+  ],
+  "host": {
+    "verdict": "pass",
+    "score": 100,
+    "checks": [
+      {
+        "id": "load",
+        "label": "加载与启动",
+        "status": "pass",
+        "message": "本地预览已完成加载。",
+        "durationMs": 189
+      },
+      {
+        "id": "runtime-errors",
+        "label": "运行稳定性",
+        "status": "pass",
+        "message": "未发现页面加载、控制台、卡死或渲染进程错误。"
+      },
+      {
+        "id": "visible-surface",
+        "label": "可见游戏画面",
+        "status": "pass",
+        "message": "检测到可见游戏表面 [data-game-root]，视觉断言通过。"
+      },
+      {
+        "id": "input-response",
+        "label": "操作反馈",
+        "status": "pass",
+        "message": "开始、移动和主要动作均有声明且已验证的画面反馈；最大变化 82.84%。"
+      },
+      {
+        "id": "continuous-render",
+        "label": "持续渲染与动画",
+        "status": "pass",
+        "message": "操作后画面仍持续变化 13.21%。"
+      },
+      {
+        "id": "restart",
+        "label": "重新开始",
+        "status": "pass",
+        "message": "重新开始操作产生了明确画面反馈。"
+      }
+    ],
+    "errors": [],
+    "surface": {
+      "found": true,
+      "selector": "[data-game-root]",
+      "tagName": "main",
+      "bounds": {
+        "x": 35.5625,
+        "y": 3,
+        "width": 952.875,
+        "height": 633.984375
+      },
+      "viewport": {
+        "width": 1024,
+        "height": 640
+      },
+      "visibleCanvasCount": 1,
+      "visibleCandidateCount": 2
+    },
+    "durationMs": 21204
+  },
+  "review": {
+    "verdict": "pass",
+    "summary": "游戏完整实现了Flappy Bird核心玩法，素材与动画正确绑定，操作反馈清晰。自动试玩验证了从启动、飞行、暂停、恢复、得分到结束和重开的完整闭环，画面变化符合预期，未发现功能性缺陷。",
+    "findings": [],
+    "regenerateArt": false
+  },
+  "assets": [
+    {
+      "subjectId": "background",
+      "role": "background",
+      "width": 1024,
+      "height": 576,
+      "frames": 1
+    },
+    {
+      "subjectId": "bird-player",
+      "role": "player",
+      "width": 323,
+      "height": 285,
+      "frames": 2
+    },
+    {
+      "subjectId": "pipe-obstacle",
+      "role": "enemy",
+      "width": 206,
+      "height": 341,
+      "frames": 1
+    }
+  ],
+  "publicFiles": [
+    {
+      "path": "index.html",
+      "status": 200,
+      "sha256": "4ebec08be766e9082d8a63765262ecb5fd16c125964128e2cb81be1cd6fdb3ef"
+    },
+    {
+      "path": "game.js",
+      "status": 200,
+      "sha256": "11e1ae8f8b161a73fa3ef47680a2c2b527b11911b21ee094c17cac38c757b9b3"
+    },
+    {
+      "path": "style.css",
+      "status": 200,
+      "sha256": "8e83fd9baae0cb6a6d9c981df34fa937f7a89f7c2781afe3edaec1fdf2f32ed3"
+    }
+  ],
+  "previewUrl": "https://ludoready.bleakbelladonna.com/play/ed576b94-db5e-4498-8e62-016859452634/LQTSap9AHBLMcj2Tw-K0BBAJgWORnG9lNn3LY40Lm0U/?v=1"
+}

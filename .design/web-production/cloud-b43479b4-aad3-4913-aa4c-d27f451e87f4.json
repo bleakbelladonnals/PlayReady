@@ -1,0 +1,126 @@
+{
+  "time": "2026-09-27T21:02:15.205Z",
+  "id": "b43479b4-aad3-4913-aa4c-d27f451e87f4",
+  "revision": 0,
+  "status": "complete",
+  "foundation": {
+    "kind": "snake"
+  },
+  "roles": [
+    "planner",
+    "production-foundation",
+    "implementer",
+    "preflight",
+    "playtest",
+    "reviewer"
+  ],
+  "host": {
+    "verdict": "pass",
+    "score": 100,
+    "checks": [
+      {
+        "id": "load",
+        "label": "加载与启动",
+        "status": "pass",
+        "message": "本地预览已完成加载。",
+        "durationMs": 192
+      },
+      {
+        "id": "runtime-errors",
+        "label": "运行稳定性",
+        "status": "pass",
+        "message": "未发现页面加载、控制台、卡死或渲染进程错误。"
+      },
+      {
+        "id": "visible-surface",
+        "label": "可见游戏画面",
+        "status": "pass",
+        "message": "检测到可见游戏表面 [data-game-root]，视觉断言通过。"
+      },
+      {
+        "id": "input-response",
+        "label": "操作反馈",
+        "status": "pass",
+        "message": "开始、移动和主要动作均有声明且已验证的画面反馈；最大变化 66.59%。"
+      },
+      {
+        "id": "continuous-render",
+        "label": "持续渲染与动画",
+        "status": "pass",
+        "message": "操作后画面仍持续变化 0.44%。"
+      },
+      {
+        "id": "restart",
+        "label": "重新开始",
+        "status": "pass",
+        "message": "重新开始操作产生了明确画面反馈。"
+      }
+    ],
+    "errors": [],
+    "surface": {
+      "found": true,
+      "selector": "[data-game-root]",
+      "tagName": "main",
+      "bounds": {
+        "x": 244,
+        "y": 3,
+        "width": 536,
+        "height": 634
+      },
+      "viewport": {
+        "width": 1024,
+        "height": 640
+      },
+      "visibleCanvasCount": 1,
+      "visibleCandidateCount": 2
+    },
+    "durationMs": 20668
+  },
+  "review": {
+    "verdict": "pass",
+    "summary": "游戏完整实现了像素贪吃蛇的核心玩法，包含开始、移动、吃食物得分、撞墙/自身结束、暂停与重启等全部流程。视觉风格符合复古像素艺术要求，背景网格清晰，蛇头与食物素材辨识度高且绑定正确。动画方面，蛇身平滑移动及头部帧切换有效传达了状态变化。操作反馈及时，UI界面布局合理且信息明确。主机试玩报告确认所有关键步骤（启动、移动、主要动作、失败、暂停恢复、重启）均通过验证，无运行时错误。",
+    "findings": [],
+    "regenerateArt": false
+  },
+  "assets": [
+    {
+      "subjectId": "background",
+      "role": "background",
+      "width": 1024,
+      "height": 1024,
+      "frames": 1
+    },
+    {
+      "subjectId": "snake-head",
+      "role": "player",
+      "width": 309,
+      "height": 309,
+      "frames": 2
+    },
+    {
+      "subjectId": "food",
+      "role": "pickup",
+      "width": 285,
+      "height": 315,
+      "frames": 1
+    }
+  ],
+  "publicFiles": [
+    {
+      "path": "index.html",
+      "status": 200,
+      "sha256": "8b68160880d172a5e464b8d6bb7837bf972d3de5812f87236c5a8b2572f54a59"
+    },
+    {
+      "path": "game.js",
+      "status": 200,
+      "sha256": "29892a34274f74ef60321754668ad2d27b553af2d7494df5145a847650150cdf"
+    },
+    {
+      "path": "style.css",
+      "status": 200,
+      "sha256": "027b29c7d7e03bd5181a4c1760b0995685265148fb647d12907550154534fb15"
+    }
+  ],
+  "previewUrl": "https://ludoready.bleakbelladonna.com/play/b43479b4-aad3-4913-aa4c-d27f451e87f4/g5FSDJSzxOufZJgPsFfCfU_PBwTC_L5Kr4w3mHfBfKQ/?v=0"
+}

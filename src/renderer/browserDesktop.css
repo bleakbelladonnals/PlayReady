@@ -1,0 +1,63 @@
+.desktop-connection-page {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  padding: 48px;
+  background: #edf3f1;
+  color: #203d36;
+}
+
+.desktop-connection-panel {
+  width: min(560px, 100%);
+  padding: 40px;
+  background: #fff;
+  border: 1px solid #ccdbd5;
+}
+
+.desktop-connection-brand {
+  color: #397463;
+  font: 12px var(--pixel);
+  letter-spacing: 2px;
+}
+
+.desktop-connection-panel h1 { margin: 24px 0 16px; font-size: 28px; }
+.desktop-connection-panel p { line-height: 1.8; }
+.desktop-connection-panel form { display: grid; gap: 12px; margin-top: 28px; }
+.desktop-connection-panel input {
+  width: 100%;
+  padding: 13px;
+  border: 1px solid #b5c9c0;
+  background: #fff;
+  color: #203d36;
+  border-radius: 0;
+}
+
+.desktop-connection-panel button, .desktop-connection-banner button {
+  padding: 12px 18px;
+  border: 1px solid #397463;
+  background: #397463;
+  color: #fff;
+  cursor: pointer;
+  border-radius: 0;
+}
+
+.desktop-connection-panel button:disabled { opacity: .6; cursor: default; }
+.desktop-connection-panel .desktop-connection-error { color: #a54436; }
+.desktop-connection-banner {
+  position: fixed;
+  left: 50%;
+  bottom: 24px;
+  transform: translateX(-50%);
+  z-index: 10000;
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  max-width: calc(100% - 48px);
+  padding: 12px 18px;
+  border: 1px solid #c9ad76;
+  background: #fff8e7;
+  color: #5e431c;
+  box-shadow: 0 4px 14px #203d361a;
+}
+
+.desktop-connection-banner button { white-space: nowrap; padding: 8px 12px; }

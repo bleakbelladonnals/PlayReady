@@ -1,0 +1,27 @@
+node_modules/
+.ludoready-web/
+dist/
+release/
+coverage/
+*.log
+.DS_Store
+.ludoready-smoke/
+
+# Local credentials and machine-specific state
+.env*
+!.env.example
+*.pem
+*.key
+*.p12
+*.pfx
+credentials*.json
+service-account*.json
+.ludoready-private/
+*.tsbuildinfo
+*.tmp
+LudoReady.zip
+
+# Tencent Cloud EdgeOne
+.env
+.edgeone/*
+.tef_dist/*

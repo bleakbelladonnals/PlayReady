@@ -1,0 +1,21 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>企鹅冰原跑酷</title><link rel="stylesheet" href="./style.css"></head><body><main id="game-root">
+  <div id="canvas-wrap"><canvas id="game"></canvas></div>
+  <div id="ui-layer">
+    <h1 id="game-title">企鹅冰原跑酷</h1>
+    <div id="hud">
+      <span id="score-display">得分: 0</span>
+      <span id="health-display">生命: ❤️❤️❤️</span>
+      <span id="time-display">时间: 20.0s</span>
+    </div>
+    <div id="message-box" class="hidden">
+      <p id="message-text">按空格键开始</p>
+      <button id="btn-action">开始游戏</button>
+    </div>
+  </div>
+  <div id="touch-controls">
+    <button id="btn-left" class="tc-btn" aria-label="向左移动">◀</button>
+    <button id="btn-right" class="tc-btn" aria-label="向右移动">▶</button>
+    <button id="btn-jump" class="tc-btn jump" aria-label="跳跃">⤒</button>
+    <button id="btn-pause" class="tc-btn pause" aria-label="暂停">||</button>
+  </div>
+</main><script src="./game.js" defer></script></body></html>

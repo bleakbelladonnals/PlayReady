@@ -1,0 +1,4 @@
+{
+  "extends": "../../../tsconfig.renderer.json",
+  "include": ["./App.tsx", "./main.tsx"]
+}

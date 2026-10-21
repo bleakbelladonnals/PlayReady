@@ -1,0 +1,107 @@
+{
+  "status": 200,
+  "type": "application/json",
+  "result": {
+    "ok": true,
+    "nodeVersion": "v24.16.0",
+    "checks": [
+      {
+        "id": "filesystem",
+        "status": "pass",
+        "message": "Node temporary filesystem supports directory creation and file read/write."
+      },
+      {
+        "id": "http",
+        "status": "pass",
+        "message": "Node HTTP server and host-side loopback fetch passed."
+      },
+      {
+        "id": "blob",
+        "status": "pass",
+        "message": "Blob JSON write, strongly consistent read and deletion passed."
+      },
+      {
+        "id": "sandbox",
+        "status": "pass",
+        "message": "Sandbox command and managed browser CDP are available."
+      },
+      {
+        "id": "browser-connect",
+        "status": "pass",
+        "message": "Direct Playwright CDP connection passed."
+      },
+      {
+        "id": "browser-context",
+        "status": "pass",
+        "message": "Managed Chromium created an isolated context and page."
+      },
+      {
+        "id": "browser-navigation",
+        "status": "pass",
+        "message": "Managed Chromium loaded the probe data page."
+      },
+      {
+        "id": "browser-screenshot",
+        "status": "pass",
+        "message": "Managed Chromium produced a PNG screenshot."
+      },
+      {
+        "id": "playtest",
+        "status": "pass",
+        "message": "Completed the existing production player journey using managed Chromium."
+      }
+    ],
+    "cdp": {
+      "protocol": "https:",
+      "queryParameterNames": [
+        "access_token"
+      ]
+    },
+    "playtest": {
+      "verdict": "pass",
+      "score": 100,
+      "durationMs": 23286,
+      "timedOut": false,
+      "checks": [
+        {
+          "id": "load",
+          "label": "加载与启动",
+          "status": "pass",
+          "message": "本地预览已完成加载。"
+        },
+        {
+          "id": "runtime-errors",
+          "label": "运行稳定性",
+          "status": "pass",
+          "message": "未发现页面加载、控制台、卡死或渲染进程错误。"
+        },
+        {
+          "id": "visible-surface",
+          "label": "可见游戏画面",
+          "status": "pass",
+          "message": "检测到可见游戏表面 #game，视觉断言通过。"
+        },
+        {
+          "id": "input-response",
+          "label": "操作反馈",
+          "status": "pass",
+          "message": "开始、移动和主要动作均有声明且已验证的画面反馈；最大变化 98.14%。"
+        },
+        {
+          "id": "continuous-render",
+          "label": "持续渲染与动画",
+          "status": "pass",
+          "message": "操作后画面仍持续变化 41.00%。"
+        },
+        {
+          "id": "restart",
+          "label": "重新开始",
+          "status": "pass",
+          "message": "重新开始操作产生了明确画面反馈。"
+        }
+      ],
+      "errors": [],
+      "droppedErrors": 0
+    }
+  }
+}

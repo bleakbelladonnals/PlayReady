@@ -1,0 +1,78 @@
+{
+  "time": "2026-09-27T22:02:48.711Z",
+  "runtime": "ready",
+  "projectId": "99f2f4ad-92a9-43f9-b997-543d89fdaa37",
+  "status": "completed",
+  "previewUrl": "https://ludo.bleakbelladonna.com/desktop/preview/99f2f4ad-92a9-43f9-b997-543d89fdaa37/T8xghR9fCUc_D-gBt_63fK7QTEaeiORMz-N6XDIrtfo/",
+  "host": {
+    "score": 100,
+    "checks": [
+      {
+        "id": "load",
+        "label": "加载与启动",
+        "status": "pass",
+        "message": "本地预览已完成加载。",
+        "durationMs": 231
+      },
+      {
+        "id": "runtime-errors",
+        "label": "运行稳定性",
+        "status": "pass",
+        "message": "未发现页面加载、控制台、卡死或渲染进程错误。"
+      },
+      {
+        "id": "visible-surface",
+        "label": "可见游戏画面",
+        "status": "pass",
+        "message": "检测到可见游戏表面 #game，视觉断言通过。"
+      },
+      {
+        "id": "input-response",
+        "label": "操作反馈",
+        "status": "pass",
+        "message": "开始、移动和主要动作均有声明且已验证的画面反馈；最大变化 38.76%。"
+      },
+      {
+        "id": "continuous-render",
+        "label": "持续渲染与动画",
+        "status": "pass",
+        "message": "操作后画面仍持续变化 29.18%。"
+      },
+      {
+        "id": "restart",
+        "label": "重新开始",
+        "status": "pass",
+        "message": "重新开始操作产生了明确画面反馈。"
+      }
+    ],
+    "summary": "自动试玩完成，加载、操作、动画与重开检查均通过。",
+    "verdict": "pass",
+    "version": 1,
+    "checkedAt": "2026-09-27T21:28:44.817Z",
+    "durationMs": 17598,
+    "reportPath": "artifacts/playtest/latest/report.json"
+  },
+  "files": [
+    {
+      "path": "index.html",
+      "status": 200,
+      "bytes": 2054,
+      "sha256": "ff7b60e610cb02084694b0f498cbd7b5a5c48b6dcf6b15c6ec53170e849501ef",
+      "matchesLocal": true
+    },
+    {
+      "path": "./assets/index-CD9IJXO2.js",
+      "status": 200,
+      "bytes": 9051,
+      "sha256": "1360573ece713fe5cab9c010d4ad3a901b8aba82d37c60d77d4a6d2b89f7790d",
+      "matchesLocal": true
+    },
+    {
+      "path": "./assets/index-JdI7P4hi.css",
+      "status": 200,
+      "bytes": 4284,
+      "sha256": "3d68bf55c2448e7de681bd69ca64273d97067e807a48cf47880664e1a16e9864",
+      "matchesLocal": true
+    }
+  ]
+}

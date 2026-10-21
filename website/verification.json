@@ -1,0 +1,38 @@
+{
+  "scope": "中文官网与真实作品展示；本地交付",
+  "desktopViewport": [
+    1440,
+    1000
+  ],
+  "mobileViewport": [
+    390,
+    844
+  ],
+  "checks": {
+    "productionBuild": "passed",
+    "publicGameEntries": 3,
+    "publicFiles": 33,
+    "desktopAndMobileHorizontalOverflow": false,
+    "allWebsiteImagesLoaded": true,
+    "skyBird": "desktop/mobile start, wrapper restart, narrow-screen start button visible",
+    "penguinRun": "desktop start/jump/pause/restart; mobile start/jump/pause; HUD separated from touch controls",
+    "forestCoins": "desktop starts and earns 5 points, pause/restart; mobile start/move-control/pause",
+    "dialogCleanup": "iframe removed on close and focus restored to initiating button",
+    "faq": "second item expands",
+    "builtSiteSmoke": "homepage, three cards, penguin iframe and mobile bird iframe passed",
+    "privateContentScan": "no local user paths or selected credential variable names in public text assets"
+  },
+  "preview": "http://127.0.0.1:5189",
+  "screenshots": [
+    "../.design/website-desktop.png",
+    "../.design/website-desktop-first-screen.png",
+    "../.design/website-mobile.png",
+    "../.design/website-mobile-game.png"
+  ],
+  "notRun": [
+    "physical iPhone/Android hardware test",
+    "macOS DMG build and fresh-Mac install",
+    "external deployment",
+    "unrelated desktop app test suite"
+  ]
+}

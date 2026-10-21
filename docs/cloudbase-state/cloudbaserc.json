@@ -1,0 +1,18 @@
+{
+  "$schema": "https://static.cloudbase.net/cli/cloudbaserc.schema.json",
+  "envId": "zaowutai-d5gkmk1fh36dd0fda",
+  "functionRoot": "functions",
+  "functions": [
+    {
+      "name": "ludoready-state",
+      "type": "Event",
+      "runtime": "Nodejs20.19",
+      "handler": "state.main",
+      "memorySize": 256,
+      "timeout": 60,
+      "installDependency": false,
+      "ignore": [],
+      "description": "LudoReady 项目状态、每日制作名额和制作任务领取"
+    }
+  ]
+}

@@ -1,0 +1,3 @@
+import {test} from 'node:test';import assert from 'node:assert/strict';import {solveLeg,pedalAt} from '../src/kinematics.js';
+test('each pedal stays reachable throughout a complete revolution',()=>{const h={x:-.43,y:1.79};for(let i=0;i<=720;i++)for(const s of [-1,1]){const p=pedalAt(i*Math.PI/360,s),k=solveLeg(h,p);assert.ok(Math.abs(Math.hypot(k.x-h.x,k.y-h.y)-.63)<1e-9);assert.ok(Math.abs(Math.hypot(k.x-p.x,k.y-p.y)-.68)<1e-9);}});
+test('pedals stay opposite and on the 25 cm crank circle',()=>{for(let i=0;i<360;i++){const a=pedalAt(i*.1,1),b=pedalAt(i*.1,-1);assert.ok(Math.abs((a.x+b.x)/2+.08)<1e-12);assert.ok(Math.abs((a.y+b.y)/2-.79)<1e-12);assert.ok(Math.abs(Math.hypot(a.x+.08,a.y-.79)-.25)<1e-12);}});

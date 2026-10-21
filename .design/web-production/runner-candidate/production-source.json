@@ -1,0 +1,275 @@
+{
+  "title": "企鹅冰原跑酷",
+  "html": "<main id=\"game-root\">\n  <div id=\"canvas-wrap\"><canvas id=\"game\"></canvas></div>\n  <div id=\"ui-layer\">\n    <h1 id=\"game-title\">企鹅冰原跑酷</h1>\n    <div id=\"hud\">\n      <span id=\"score-display\">得分: 0</span>\n      <span id=\"health-display\">生命: ❤️❤️❤️</span>\n      <span id=\"time-display\">时间: 20.0s</span>\n    </div>\n    <div id=\"message-box\" class=\"hidden\">\n      <p id=\"message-text\">按空格键开始</p>\n      <button id=\"btn-action\">开始游戏</button>\n    </div>\n  </div>\n  <div id=\"touch-controls\">\n    <button id=\"btn-left\" class=\"tc-btn\" aria-label=\"向左移动\">◀</button>\n    <button id=\"btn-right\" class=\"tc-btn\" aria-label=\"向右移动\">▶</button>\n    <button id=\"btn-jump\" class=\"tc-btn jump\" aria-label=\"跳跃\">⤒</button>\n    <button id=\"btn-pause\" class=\"tc-btn pause\" aria-label=\"暂停\">||</button>\n  </div>\n</main>",
+  "css": "* { margin: 0; padding: 0; box-sizing: border-box; }\nhtml, body { width: 100%; height: 100%; overflow: hidden; background: #87CEEB; touch-action: none; user-select: none; -webkit-user-select: none; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }\nbody { display: grid; place-items: center; padding: 12px; }\n#game-root { width: min(900px, calc(100vw - 24px), calc((100svh - 90px) * 16 / 9)); display: grid; grid-template-columns: minmax(0, 1fr); grid-template-rows: auto 66px; position: relative; }\n#canvas-wrap { grid-area: 1 / 1; width: 100%; aspect-ratio: 16 / 9; display: flex; align-items: center; justify-content: center; position: relative; z-index: 1; overflow: hidden; border-radius: 8px 8px 0 0; background: #E0F7FA; }\ncanvas { width: 100%; height: 100%; image-rendering: pixelated; image-rendering: crisp-edges; display: block; }\n\n/* The UI shares the canvas grid cell, so every overlay is anchored to the scene. */\n#ui-layer { grid-area: 1 / 1; position: relative; width: 100%; height: 100%; min-height: 0; pointer-events: none; z-index: 10; }\n#game-title { position: absolute; top: 10px; left: 12px; right: 12px; color: #37474F; text-shadow: 1px 1px 0 #FFF; font-size: clamp(18px, 2.5vw, 24px); line-height: 1.2; }\n#hud { position: absolute; top: 43px; left: 12px; display: flex; align-items: center; gap: 12px; max-width: calc(100% - 24px); background: rgba(255,255,255,0.94); padding: 5px 10px; border: 1px solid rgba(55,71,79,0.18); border-radius: 5px; color: #37474F; font-weight: 650; font-size: clamp(12px, 1.6vw, 15px); line-height: 1.25; white-space: nowrap; }\n#message-box { position: absolute; top: calc(50% + 24px); left: 50%; transform: translate(-50%, -50%); width: min(320px, calc(100% - 36px)); max-height: calc(100% - 78px); background: rgba(255,255,255,0.97); border: 1px solid rgba(55,71,79,0.24); padding: 12px; border-radius: 6px; text-align: center; pointer-events: auto; overflow: auto; }\n#message-box.hidden { display: none; }\n#message-box p { margin-bottom: 10px; color: #37474F; font-size: clamp(14px, 2vw, 18px); line-height: 1.4; }\n#btn-action { min-width: 128px; min-height: 44px; max-width: 100%; border: 2px solid #E65100; padding: 8px 16px; background: #FF9800; color: #37474F; font-size: 15px; line-height: 1.3; font-weight: 700; border-radius: 4px; cursor: pointer; touch-action: manipulation; }\n#btn-action:active { background: #FFC107; transform: translateY(1px); }\nbutton:focus-visible { outline: 3px solid #37474F; outline-offset: 2px; }\n\n/* A separate row reserves 66px for all four touch controls below the scene. */\n#touch-controls { grid-area: 2 / 1; position: relative; display: flex; align-items: center; justify-content: space-between; gap: 8px; width: 100%; height: 66px; padding: 10px 12px; border-top: 1px solid rgba(55,71,79,0.25); border-radius: 0 0 8px 8px; background: #E0F7FA; pointer-events: none; z-index: 20; }\n.tc-btn { width: 46px; height: 46px; flex: 0 0 46px; border-radius: 5px; background: #FFF; border: 2px solid #37474F; color: #37474F; font-size: 22px; line-height: 1; font-weight: 700; pointer-events: auto; touch-action: none; cursor: pointer; display: flex; align-items: center; justify-content: center; }\n.tc-btn.jump { background: #FF9800; border-color: #E65100; font-size: 28px; }\n.tc-btn.pause { background: #37474F; color: #FFF; font-size: 20px; }\n.tc-btn:active { background: #FFC107; color: #37474F; transform: translateY(1px); }\n\n@media (max-width: 460px) {\n  #game-title { top: 9px; font-size: 18px; }\n  #hud { top: 37px; gap: 9px; padding: 4px 8px; font-size: 12px; }\n  #message-box { padding: 10px; }\n  #message-box p { font-size: 14px; }\n}\n",
+  "js": "// --- Configuration & State ---\nconst CONFIG = {\n  fps: 60,\n  gameDuration: 20,\n  scrollSpeed: 300,\n  playerX: 150,\n  playerYBase: 400,\n  gravity: 2500,\n  jumpForce: -900,\n  moveRange: 100,\n  hitboxW: 40,\n  hitboxH: 60,\n  // Visual sizes (separate from hitboxes)\n  visualSizePenguin: 80,\n  visualSizeFish: 40,\n  visualSizeIce: 60, // Ice block visual size\n  colors: {\n    bg: '#87CEEB',\n    ui: '#FFFFFF'\n  }\n};\n\n// Fixed Obstacle Sequence (Time in seconds, Type: 'ice' or 'fish')\n// First fish is on ground route to ensure collection without jump.\nconst SEQUENCE = [\n  { t: 1.5, type: 'fish', yOff: 0 }, // Ground fish\n  { t: 3.0, type: 'ice' },           // Jump obstacle\n  { t: 5.0, type: 'fish', yOff: -80 }, // High fish\n  { t: 7.5, type: 'ice' },\n  { t: 10.0, type: 'fish', yOff: 0 },\n  { t: 12.5, type: 'ice' },\n  { t: 15.0, type: 'fish', yOff: -60 },\n  { t: 17.5, type: 'ice' }\n];\n\nlet state = 'loading'; // loading, start, playing, paused, gameover, win\nlet score = 0;\nlet health = 3;\nlet gameTime = 0;\nlet entities = [];\nlet particles = [];\nlet lastTime = 0;\nlet assetsLoaded = false;\nlet spawnIndex = 0;\n\nconst keys = {\n  ArrowLeft: false,\n  ArrowRight: false,\n  Space: false\n};\n\n// DOM Elements\nconst canvas = document.getElementById('game');\nconst ctx = canvas.getContext('2d');\nconst uiTitle = document.getElementById('game-title');\nconst hudScore = document.getElementById('score-display');\nconst hudHealth = document.getElementById('health-display');\nconst hudTime = document.getElementById('time-display');\nconst msgBox = document.getElementById('message-box');\nconst msgText = document.getElementById('message-text');\nconst btnAction = document.getElementById('btn-action');\n\nlet W = 800, H = 450; // Adjusted Canvas Height to match BG aspect ratio roughly\n\nfunction resize() {\n  const wrap = document.getElementById('canvas-wrap');\n  const aspect = 800/450; // 16:9\n  let w = wrap.clientWidth;\n  let h = wrap.clientHeight;\n  if (w / h > aspect) {\n    w = h * aspect;\n  } else {\n    h = w / aspect;\n  }\n  canvas.width = W;\n  canvas.height = H;\n  canvas.style.width = w + 'px';\n  canvas.style.height = h + 'px';\n}\nwindow.addEventListener('resize', resize);\nresize();\n\n// Asset Loading\nconst images = {\n  penguin: [null, null],\n  ice: null,\n  fish: null,\n  bg: null\n};\n\nfunction loadImages() {\n  return new Promise((resolve) => {\n    let loadedCount = 0;\n    const total = 5;\n    \n    function check() {\n      loadedCount++;\n      if (loadedCount >= total) {\n        assetsLoaded = true;\n        resolve();\n      }\n    }\n\n    ['penguin-player-0.png', 'penguin-player-1.png'].forEach((file, i) => {\n      const img = new Image();\n      img.src = `./assets/images/${file}`;\n      img.onload = () => { images.penguin[i] = img; check(); };\n      img.onerror = () => { console.error('Failed to load', file); check(); };\n    });\n\n    const imgIce = new Image();\n    imgIce.src = './assets/images/ice-block-obstacle-0.png';\n    imgIce.onload = () => { images.ice = imgIce; check(); };\n    imgIce.onerror = () => { console.error('Failed to load ice'); check(); };\n\n    const imgFish = new Image();\n    imgFish.src = './assets/images/fish-collectible-0.png';\n    imgFish.onload = () => { images.fish = imgFish; check(); };\n    imgFish.onerror = () => { console.error('Failed to load fish'); check(); };\n\n    const imgBg = new Image();\n    imgBg.src = './assets/images/background-e8322dd33de2-c889663d-693f-4f88-ab51-761d43d6bcb7.png';\n    imgBg.onload = () => { images.bg = imgBg; check(); };\n    imgBg.onerror = () => { console.error('Failed to load bg'); check(); };\n  });\n}\n\n// Game Objects\nconst player = {\n  x: CONFIG.playerX,\n  y: CONFIG.playerYBase,\n  vy: 0,\n  isJumping: false,\n  frameIndex: 0,\n  frameTimer: 0,\n  invincibleTimer: 0\n};\n\nfunction updateUI() {\n  hudScore.textContent = `得分: ${score}`;\n  hudHealth.textContent = `生命: ${'❤️'.repeat(health)}`;\n  hudTime.textContent = `时间: ${(CONFIG.gameDuration - gameTime).toFixed(1)}s`;\n}\n\nfunction showMessage(text, buttonText) {\n  msgText.textContent = text;\n  btnAction.textContent = buttonText;\n  msgBox.classList.remove('hidden');\n}\n\nfunction hideMessage() {\n  msgBox.classList.add('hidden');\n}\n\nfunction resetGame() {\n  state = 'playing';\n  score = 0;\n  health = 3;\n  gameTime = 0;\n  entities = [];\n  particles = [];\n  spawnIndex = 0;\n  player.x = CONFIG.playerX;\n  player.y = CONFIG.playerYBase;\n  player.vy = 0;\n  player.isJumping = false;\n  player.invincibleTimer = 0;\n  hideMessage();\n  updateUI();\n}\n\nfunction spawnEntity(seqItem) {\n  const e = {\n    type: seqItem.type,\n    x: W + 50,\n    y: seqItem.type === 'ice' ? CONFIG.playerYBase : CONFIG.playerYBase + (seqItem.yOff || 0),\n    // Hitbox dimensions for collision logic\n    w: seqItem.type === 'ice' ? 50 : 30, \n    h: seqItem.type === 'ice' ? 50 : 20,\n    collected: false\n  };\n  entities.push(e);\n}\n\nfunction createParticles(x, y, color) {\n  for(let i=0; i<5; i++) {\n    particles.push({\n      x: x, y: y,\n      vx: (Math.random()-0.5)*200,\n      vy: (Math.random()-0.5)*200 - 100,\n      life: 1.0,\n      color: color\n    });\n  }\n}\n\n// Update Logic\nfunction update(dt) {\n  if (state !== 'playing') return;\n\n  gameTime += dt;\n  updateUI();\n  \n  if (gameTime >= CONFIG.gameDuration) {\n    state = 'win';\n    showMessage(`挑战成功! 最终得分: ${score}`, '重新开始');\n    return;\n  }\n\n  while(spawnIndex < SEQUENCE.length && gameTime >= SEQUENCE[spawnIndex].t) {\n    spawnEntity(SEQUENCE[spawnIndex]);\n    spawnIndex++;\n  }\n\n  let moveDir = 0;\n  if (keys.ArrowLeft) moveDir -= 1;\n  if (keys.ArrowRight) moveDir += 1;\n  \n  player.x += moveDir * 100 * dt;\n  if (player.x < CONFIG.playerX - CONFIG.moveRange) player.x = CONFIG.playerX - CONFIG.moveRange;\n  if (player.x > CONFIG.playerX + CONFIG.moveRange) player.x = CONFIG.playerX + CONFIG.moveRange;\n  if (moveDir === 0) {\n    player.x += (CONFIG.playerX - player.x) * 5 * dt;\n  }\n\n  if (player.isJumping) {\n    player.vy += CONFIG.gravity * dt;\n    player.y += player.vy * dt;\n    \n    if (player.y >= CONFIG.playerYBase) {\n      player.y = CONFIG.playerYBase;\n      player.isJumping = false;\n      player.vy = 0;\n    }\n  }\n\n  if (!player.isJumping) {\n    player.frameTimer += dt;\n    if (player.frameTimer > 0.15) {\n      player.frameIndex = (player.frameIndex + 1) % 2;\n      player.frameTimer = 0;\n    }\n  } else {\n    player.frameIndex = 0;\n  }\n\n  if (player.invincibleTimer > 0) {\n    player.invincibleTimer -= dt;\n  }\n\n  for (let i = entities.length - 1; i >= 0; i--) {\n    const e = entities[i];\n    e.x -= CONFIG.scrollSpeed * dt;\n    \n    if (!e.collected) {\n      // Correct Collision Box Calculation using Hitbox Config\n      const px = player.x - CONFIG.hitboxW/2;\n      const py = player.y - CONFIG.hitboxH;\n      const pw = CONFIG.hitboxW;\n      const ph = CONFIG.hitboxH;\n      \n      const ex = e.x - e.w/2;\n      const ey = e.y - e.h;\n      const ew = e.w;\n      const eh = e.h;\n      \n      if (px < ex + ew && px + pw > ex && py < ey + eh && py + ph > ey) {\n        if (e.type === 'ice') {\n          if (player.invincibleTimer <= 0) {\n            health--;\n            player.invincibleTimer = 1.0;\n            createParticles(player.x, player.y - 30, '#FF4444');\n            updateUI();\n            if (health <= 0) {\n              state = 'gameover';\n              showMessage(`游戏结束! 最终得分: ${score}`, '重新开始');\n            }\n          }\n        } else if (e.type === 'fish') {\n          score += 10;\n          e.collected = true;\n          createParticles(e.x, e.y - 15, '#FFC107');\n          updateUI();\n        }\n      }\n    }\n\n    if (e.x < -100) {\n      entities.splice(i, 1);\n    }\n  }\n\n  for (let i = particles.length - 1; i >= 0; i--) {\n    const p = particles[i];\n    p.x += p.vx * dt;\n    p.y += p.vy * dt;\n    p.vy += 500 * dt;\n    p.life -= dt;\n    if (p.life <= 0) particles.splice(i, 1);\n  }\n}\n\n// Render Logic\nfunction draw() {\n  ctx.fillStyle = '#E0F7FA';\n  ctx.fillRect(0, 0, W, H);\n\n  if (images.bg) {\n    // Draw Background maintaining aspect ratio (Cover/Fit strategy)\n    // Source 1024x576, Target 800x450 -> Aspect matches perfectly\n    ctx.drawImage(images.bg, 0, 0, W, H);\n  }\n\n  ctx.strokeStyle = 'rgba(255,255,255,0.5)';\n  ctx.beginPath();\n  ctx.moveTo(0, CONFIG.playerYBase);\n  ctx.lineTo(W, CONFIG.playerYBase);\n  ctx.stroke();\n\n  entities.forEach(e => {\n    if (e.collected) return;\n    let img = e.type === 'ice' ? images.ice : images.fish;\n    let vSize = e.type === 'ice' ? CONFIG.visualSizeIce : CONFIG.visualSizeFish;\n    \n    if (img) {\n      // Draw square proportional to source\n      ctx.drawImage(img, e.x - vSize/2, e.y - vSize, vSize, vSize);\n    } else {\n      ctx.fillStyle = e.type === 'ice' ? '#4DD0E1' : '#FF9800';\n      ctx.fillRect(e.x - vSize/2, e.y - vSize, vSize, vSize);\n    }\n  });\n\n  if (state === 'playing' || state === 'paused' || state === 'start') {\n    const img = images.penguin[player.frameIndex];\n    if (img) {\n      if (player.invincibleTimer > 0 && Math.floor(gameTime * 10) % 2 === 0) {\n        ctx.globalAlpha = 0.5;\n      }\n      // Draw Penguin 80x80 centered on X, aligned to Bottom Y\n      const vSize = CONFIG.visualSizePenguin;\n      ctx.drawImage(img, player.x - vSize/2, player.y - vSize, vSize, vSize);\n      ctx.globalAlpha = 1.0;\n    } else {\n      ctx.fillStyle = '#37474F';\n      ctx.fillRect(player.x - 20, player.y - 40, 40, 40);\n    }\n  }\n\n  particles.forEach(p => {\n    ctx.fillStyle = p.color;\n    ctx.globalAlpha = p.life;\n    ctx.beginPath();\n    ctx.arc(p.x, p.y, 3, 0, Math.PI*2);\n    ctx.fill();\n  });\n  ctx.globalAlpha = 1.0;\n}\n\n// Main Loop\nfunction loop(timestamp) {\n  if (!lastTime) lastTime = timestamp;\n  const dt = (timestamp - lastTime) / 1000;\n  lastTime = timestamp;\n  const cappedDt = Math.min(dt, 0.1);\n\n  update(cappedDt);\n  draw();\n\n  requestAnimationFrame(loop);\n}\n\n// Input Handlers\nwindow.addEventListener('keydown', (e) => {\n  if (e.code === 'Space') {\n    e.preventDefault();\n    if (state === 'start') {\n      resetGame();\n    } else if (state === 'playing' && !player.isJumping) {\n      player.isJumping = true;\n      player.vy = CONFIG.jumpForce;\n    }\n  }\n  if (e.code === 'KeyP') {\n    if (state === 'playing') {\n      state = 'paused';\n      showMessage('暂停中', '继续游戏');\n    }\n    else if (state === 'paused') {\n      state = 'playing';\n      hideMessage();\n    }\n  }\n  if (e.code === 'KeyR') {\n    if (state === 'gameover' || state === 'win') {\n      state = 'start';\n      score = 0;\n      health = 3;\n      gameTime = 0;\n      updateUI();\n      showMessage('按空格键开始', '开始游戏');\n    }\n  }\n  if (e.code === 'ArrowLeft') keys.ArrowLeft = true;\n  if (e.code === 'ArrowRight') keys.ArrowRight = true;\n});\n\nwindow.addEventListener('keyup', (e) => {\n  if (e.code === 'ArrowLeft') keys.ArrowLeft = false;\n  if (e.code === 'ArrowRight') keys.ArrowRight = false;\n});\n\n// Touch Controls\nconst btnLeft = document.getElementById('btn-left');\nconst btnRight = document.getElementById('btn-right');\nconst btnJump = document.getElementById('btn-jump');\nconst btnPause = document.getElementById('btn-pause');\n\nfunction setupTouchBtn(btn, keyName, actionFn) {\n  btn.addEventListener('pointerdown', (e) => { \n    e.preventDefault(); \n    btn.setPointerCapture(e.pointerId);\n    if(keyName) keys[keyName]=true; \n    if(actionFn) actionFn(); \n  });\n  btn.addEventListener('pointerup', (e) => { \n    e.preventDefault(); \n    if(keyName) keys[keyName]=false; \n  });\n  btn.addEventListener('pointercancel', (e) => { \n    e.preventDefault(); \n    if(keyName) keys[keyName]=false; \n  });\n}\n\nsetupTouchBtn(btnLeft, 'ArrowLeft');\nsetupTouchBtn(btnRight, 'ArrowRight');\nsetupTouchBtn(btnJump, null, () => {\n  if (state === 'start') { resetGame(); }\n  else if (state === 'playing' && !player.isJumping) {\n    player.isJumping = true;\n    player.vy = CONFIG.jumpForce;\n  }\n});\n\nbtnPause.addEventListener('pointerdown', (e) => {\n  e.preventDefault();\n  if (state === 'playing') {\n    state = 'paused';\n    showMessage('暂停中', '继续游戏');\n  } else if (state === 'paused') {\n    state = 'playing';\n    hideMessage();\n  }\n});\n\nbtnAction.addEventListener('click', () => {\n  if (state === 'start' || state === 'gameover' || state === 'win') {\n    resetGame();\n  } else if (state === 'paused') {\n    state = 'playing';\n    hideMessage();\n  }\n});\n\ncanvas.addEventListener('click', () => {\n  if (state === 'start') {\n    resetGame();\n  }\n});\n\n// Init\nloadImages().then(() => {\n  state = 'start';\n  showMessage('按空格键开始', '开始游戏');\n  requestAnimationFrame(loop);\n});",
+  "playtest": {
+    "schemaVersion": 1,
+    "updatedAt": "2026-09-27T11:59:30.995Z",
+    "engine": "web",
+    "entrypoint": {
+      "path": "public/index.html",
+      "readyTimeoutMs": 15000
+    },
+    "actions": {
+      "start": {
+        "inputs": [
+          {
+            "type": "key",
+            "code": "Space",
+            "holdMs": 100
+          }
+        ]
+      },
+      "move": {
+        "inputs": [
+          {
+            "type": "key",
+            "code": "ArrowRight",
+            "holdMs": 500
+          }
+        ]
+      },
+      "primary": {
+        "inputs": [
+          {
+            "type": "key",
+            "code": "Space",
+            "holdMs": 100
+          }
+        ]
+      },
+      "pause": {
+        "inputs": [
+          {
+            "type": "key",
+            "code": "KeyP",
+            "holdMs": 100
+          }
+        ]
+      },
+      "restart": {
+        "inputs": [
+          {
+            "type": "key",
+            "code": "KeyR",
+            "holdMs": 100
+          }
+        ]
+      }
+    },
+    "journey": [
+      {
+        "id": "ready",
+        "action": "launch",
+        "inputs": [
+          {
+            "type": "wait",
+            "ms": 2000
+          }
+        ],
+        "observe": [
+          {
+            "kind": "text-visible",
+            "description": "Start screen message visible",
+            "value": "按空格键开始"
+          }
+        ],
+        "capture": "launch.png"
+      },
+      {
+        "id": "start",
+        "action": "start",
+        "inputs": [
+          {
+            "type": "key",
+            "code": "Space",
+            "holdMs": 100
+          }
+        ],
+        "observe": [
+          {
+            "kind": "screen-change",
+            "description": "Game transitions from Start to Playing",
+            "baselineStepId": "ready"
+          },
+          {
+            "kind": "text-visible",
+            "description": "HUD shows Score 0",
+            "value": "得分: 0"
+          }
+        ],
+        "capture": "started.png"
+      },
+      {
+        "id": "move",
+        "action": "move",
+        "inputs": [
+          {
+            "type": "key",
+            "code": "ArrowRight",
+            "holdMs": 500
+          }
+        ],
+        "observe": [
+          {
+            "kind": "screen-change",
+            "description": "Player moves horizontally after arrow key press",
+            "baselineStepId": "start"
+          }
+        ],
+        "capture": "moved.png"
+      },
+      {
+        "id": "collect_fish",
+        "action": "wait",
+        "inputs": [
+          {
+            "type": "wait",
+            "ms": 2500
+          }
+        ],
+        "observe": [
+          {
+            "kind": "text-visible",
+            "description": "Score increased after collecting first fish",
+            "value": "得分: 10"
+          }
+        ],
+        "capture": "collected.png"
+      },
+      {
+        "id": "jump_ice",
+        "action": "primary",
+        "inputs": [
+          {
+            "type": "key",
+            "code": "Space",
+            "holdMs": 100
+          }
+        ],
+        "observe": [
+          {
+            "kind": "screen-change",
+            "description": "Player jumps over ice block",
+            "baselineStepId": "collect_fish"
+          }
+        ],
+        "capture": "jumped.png"
+      },
+      {
+        "id": "crash_1",
+        "action": "wait",
+        "inputs": [
+          {
+            "type": "wait",
+            "ms": 2000
+          }
+        ],
+        "observe": [
+          {
+            "kind": "text-visible",
+            "description": "Health decreased after crash",
+            "value": "生命: ❤️❤️"
+          }
+        ],
+        "capture": "crashed.png"
+      },
+      {
+        "id": "pause",
+        "action": "pause",
+        "inputs": [
+          {
+            "type": "key",
+            "code": "KeyP",
+            "holdMs": 100
+          }
+        ],
+        "observe": [
+          {
+            "kind": "text-visible",
+            "description": "Pause overlay appears",
+            "value": "暂停中"
+          }
+        ],
+        "capture": "paused.png"
+      },
+      {
+        "id": "resume",
+        "action": "pause",
+        "inputs": [
+          {
+            "type": "key",
+            "code": "KeyP",
+            "holdMs": 100
+          },
+          {
+            "type": "wait",
+            "ms": 1000
+          }
+        ],
+        "observe": [
+          {
+            "kind": "screen-change",
+            "description": "Pause overlay disappears and gameplay resumes",
+            "baselineStepId": "pause"
+          }
+        ],
+        "capture": "resumed.png"
+      },
+      {
+        "id": "terminal_fail",
+        "action": "wait",
+        "inputs": [
+          {
+            "type": "wait",
+            "ms": 10000
+          }
+        ],
+        "observe": [
+          {
+            "kind": "text-visible",
+            "description": "Game Over screen appears",
+            "value": "游戏结束!"
+          }
+        ],
+        "capture": "gameover.png"
+      },
+      {
+        "id": "restart",
+        "action": "restart",
+        "inputs": [
+          {
+            "type": "key",
+            "code": "KeyR",
+            "holdMs": 100
+          }
+        ],
+        "observe": [
+          {
+            "kind": "text-visible",
+            "description": "Returns to Start screen",
+            "value": "按空格键开始"
+          },
+          {
+            "kind": "screen-change",
+            "description": "Screen changes from Game Over to Start",
+            "baselineStepId": "terminal_fail"
+          }
+        ],
+        "capture": "restarted.png"
+      }
+    ],
+    "success": [
+      {
+        "kind": "text-visible",
+        "description": "Start screen text visible after restart",
+        "value": "按空格键开始"
+      }
+    ],
+    "limits": {
+      "maxRunMs": 60000,
+      "stepTimeoutMs": 20000
+    }
+  }
+}

@@ -1,0 +1,99 @@
+{
+  "id": "9469c13b-b531-40aa-b880-1f7836f2ed42",
+  "completed": true,
+  "host": [
+    {
+      "verdict": "pass",
+      "score": 100,
+      "durationMs": 69735,
+      "errors": [],
+      "checks": [
+        {
+          "id": "load",
+          "label": "加载与启动",
+          "status": "pass",
+          "message": "本地预览已完成加载。",
+          "durationMs": 61
+        },
+        {
+          "id": "runtime-errors",
+          "label": "运行稳定性",
+          "status": "pass",
+          "message": "未发现页面加载、控制台、卡死或渲染进程错误。"
+        },
+        {
+          "id": "visible-surface",
+          "label": "可见游戏画面",
+          "status": "pass",
+          "message": "检测到可见游戏表面 #scene，视觉断言通过。"
+        },
+        {
+          "id": "input-response",
+          "label": "操作反馈",
+          "status": "pass",
+          "message": "开始、移动和主要动作均有声明且已验证的画面反馈；最大变化 77.06%。"
+        },
+        {
+          "id": "continuous-render",
+          "label": "持续渲染与动画",
+          "status": "pass",
+          "message": "操作后画面仍持续变化 5.29%。"
+        },
+        {
+          "id": "restart",
+          "label": "重新开始",
+          "status": "pass",
+          "message": "重新开始操作产生了明确画面反馈。"
+        }
+      ],
+      "failed": [],
+      "reportPath": "/Users/bleak/Documents/ChatGPT/游戏项目/.ludoready-private/pipeline-verification/route-only-2026-09-27T22-02-44-223Z/projects/9469c13b-b531-40aa-b880-1f7836f2ed42/.production/work/artifacts/playtest/latest/report.json"
+    }
+  ],
+  "api": [
+    {
+      "role": "ludoready_playtest",
+      "status": 200,
+      "model": "qwen3.8-flash",
+      "usage": {
+        "prompt_tokens": 9976,
+        "total_tokens": 11899,
+        "completion_tokens": 1923,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "text_tokens": 9976
+        }
+      }
+    },
+    {
+      "role": "ludoready_reviewer",
+      "status": 200,
+      "model": "qwen3.8-flash",
+      "usage": {
+        "prompt_tokens": 22053,
+        "total_tokens": 22146,
+        "completion_tokens": 93,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "image_tokens": 7334,
+          "text_tokens": 14719
+        },
+        "completion_tokens_details": {}
+      }
+    }
+  ],
+  "imageRequests": 0,
+  "reviewers": [
+    {
+      "verdict": "pass",
+      "summary": "游戏完全符合用户要求：方向键控制、接金币得分、60秒规则。试玩路线修复成功，验证了重开时结束提示消失和画面重置为可玩状态（计时器回到60s）。所有素材正确绑定且比例正常，无单轴压缩变形。主机报告确认所有步骤通过。",
+      "findings": [],
+      "regenerateArt": false
+    }
+  ],
+  "sourceFieldsUnchanged": true,
+  "gamePublicFilesUnchanged": true,
+  "imageHashesUnchanged": true,
+  "planUnchanged": true,
+  "originalPublicUntouched": true
+}
