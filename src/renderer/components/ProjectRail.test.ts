@@ -39,10 +39,10 @@ describe('ProjectRail context menu', () => {
     expect(markup).not.toContain('lucide-plus');
   });
 
-  it('counts imported games and gives them the same project controls', () => {
+  it('counts projects and gives them the same project controls', () => {
     const projects = [
-      { id: 'pelican-astra', name: '鹈鹕骑车 · 海岸漫游', engine: 'web', status: 'completed', updatedAt: '2026-10-10T00:00:00.000Z' },
-      { id: 'pelican-opus', name: '鹈鹕骑车 · 追风骑行', engine: 'web', status: 'completed', updatedAt: '2026-10-10T00:00:00.000Z' },
+      { id: 'project-one', name: '晨光计划', engine: 'web', status: 'completed', updatedAt: '2026-10-10T00:00:00.000Z' },
+      { id: 'project-two', name: '追风计划', engine: 'web', status: 'completed', updatedAt: '2026-10-10T00:00:00.000Z' },
     ] as ProjectRecord[];
     const markup = renderToStaticMarkup(createElement(ProjectRail, {
       projects,

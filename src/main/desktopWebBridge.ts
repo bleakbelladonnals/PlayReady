@@ -1,4 +1,4 @@
-import { createHash, createHmac, randomBytes, randomUUID, timingSafeEqual } from 'node:crypto';
+import { createHmac, randomBytes, randomUUID, timingSafeEqual } from 'node:crypto';
 import { createServer, type Server, type IncomingMessage, type ServerResponse } from 'node:http';
 import { mkdir, readFile, realpath, stat, writeFile } from 'node:fs/promises';
 import { basename, extname, join, relative, resolve, sep } from 'node:path';
@@ -149,21 +149,11 @@ export class DesktopWebBridge {
     let path: string;
     try { path = await realpath(candidate); } catch { json(response, 404, { error: '文件不存在' }); return; }
     if (!contained(root, path) || !(await stat(path)).isFile()) { json(response, 404, { error: '文件不存在' }); return; }
-    let contents: Buffer | undefined;
     if (extname(path) === '.html') {
-      const showcase = /^\/showcases\/(astra|opus)\/index\.html$/u.test(pathname);
-      const scripts = ["'self'"];
-      if (showcase) {
-        // These bundled scenes inline their runtime so sandboxed file:// frames also work offline.
-        contents = await readFile(path);
-        for (const match of contents.toString('utf8').matchAll(/<script>([\s\S]*?)<\/script>/gu)) {
-          scripts.push(`'sha256-${createHash('sha256').update(match[1]!).digest('base64')}'`);
-        }
-      }
-      response.setHeader('Content-Security-Policy', `default-src 'self'; script-src ${scripts.join(' ')}; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob: http://127.0.0.1:*; media-src 'self' data: blob: http://127.0.0.1:*; font-src 'self' data:; connect-src 'self'; frame-src 'self' http://127.0.0.1:*; object-src 'none'; base-uri 'self'; frame-ancestors ${showcase ? "'self'" : "'none'"}`);
+      response.setHeader('Content-Security-Policy', "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob: http://127.0.0.1:*; media-src 'self' data: blob: http://127.0.0.1:*; font-src 'self' data:; connect-src 'self'; frame-src 'self' http://127.0.0.1:*; object-src 'none'; base-uri 'self'; frame-ancestors 'none'");
     }
     response.setHeader('Content-Type', mime[extname(path)] ?? 'application/octet-stream');
-    response.end(request.method === 'HEAD' ? undefined : contents ?? await readFile(path));
+    response.end(request.method === 'HEAD' ? undefined : await readFile(path));
   }
   async #upload(input: Record<string, unknown>): Promise<{ paths: string[] }> {
     if (!Array.isArray(input.files) || !input.files.length || input.files.length > 50) throw new Error('一次上传 1–50 个附件');

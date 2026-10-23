@@ -1,5 +1,4 @@
 import { mkdtemp, mkdir, readFile, rm, symlink, writeFile } from 'node:fs/promises';
-import { createHash } from 'node:crypto';
 import { tmpdir } from 'node:os';
 import { dirname, join, relative } from 'node:path';
 import { afterEach, describe, expect, it, vi } from 'vitest';
@@ -47,23 +46,6 @@ async function fixture() {
 }
 
 describe('desktop Web bridge', () => {
-  it('embeds and authorizes inline bundles only for the two built-in showcases', async () => {
-    const f = await fixture();
-    const script = 'window.bundleReady = true;';
-    const html = `<!doctype html><canvas></canvas><script>${script}</script>`;
-    const hash = createHash('sha256').update(script).digest('base64');
-    for (const id of ['astra', 'opus', 'unknown']) {
-      await mkdir(join(f.rendererRoot, 'showcases', id), { recursive: true });
-      await writeFile(join(f.rendererRoot, 'showcases', id, 'index.html'), html);
-      const response = await fetch(`${f.bridge.origin}/showcases/${id}/index.html`);
-      expect(response.status).toBe(200);
-      const policy = response.headers.get('content-security-policy');
-      expect(policy).toContain(`frame-ancestors '${id === 'unknown' ? 'none' : 'self'}'`);
-      expect(policy).toContain(id === 'unknown' ? "script-src 'self';" : `script-src 'self' 'sha256-${hash}';`);
-      expect(await response.text()).toBe(html);
-    }
-    expect((await fetch(`${f.bridge.origin}/`)).headers.get('content-security-policy')).toContain("frame-ancestors 'none'");
-  });
   it('reduces idle cloud polls to every 10 seconds, wakes for new events, and keeps active work responsive', async () => {
     const f = await fixture();
     const realFetch = globalThis.fetch;
