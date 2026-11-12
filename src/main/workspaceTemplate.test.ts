@@ -38,7 +38,7 @@ describe('createWorkspaceTemplate', () => {
     );
     await expect(
       readFile(join(root, '.codex/skills/ludoready-game-builder/SKILL.md'), 'utf8'),
-    ).resolves.toContain('LudoReady Game Builder');
+    ).resolves.toContain('PlayReady Game Builder');
 
     const manifest = JSON.parse(
       await readFile(join(root, 'public/assets/asset-pack.json'), 'utf8'),
@@ -91,7 +91,7 @@ describe('createWorkspaceTemplate', () => {
 
     const agents = await readFile(join(root, 'AGENTS.md'), 'utf8');
     expect(agents).toContain('ludoready_image_generate');
-    expect(agents).toContain('host-trusted generated image is required for every LudoReady game');
+    expect(agents).toContain('host-trusted generated image is required for every PlayReady game');
     expect(agents).toContain('Codex ImageGen fallback');
     expect(agents).toContain('visibly loaded by the running game');
     expect(agents).toContain('core visual asset coverage table');
@@ -167,7 +167,7 @@ describe('createWorkspaceTemplate', () => {
     expect(skill.startsWith('---\nname: ludoready-game-builder')).toBe(true);
     expect(occurrences(skill, LUDOREADY_HOST_RUNTIME_POLICY_START)).toBe(1);
     expect(skill.indexOf(LUDOREADY_HOST_RUNTIME_POLICY_START)).toBeLessThan(
-      skill.indexOf('# LudoReady Game Builder'),
+      skill.indexOf('# PlayReady Game Builder'),
     );
     expectManagedMediaPolicy(skill);
 
@@ -189,12 +189,12 @@ describe('createWorkspaceTemplate', () => {
     expect(design).toContain('`artifacts/playtest/latest/report.json` passes every declared step');
 
     const readme = await readFile(join(root, 'README.md'), 'utf8');
-    expect(readme).toContain('Every LudoReady run includes an animation needs assessment');
+    expect(readme).toContain('Every PlayReady run includes an animation needs assessment');
     expect(readme).toContain('verify and reuse the existing frame set/sprite sheet');
     expect(readme).toContain('Actual rigged 3D characters use real GLB animation clips');
     expect(readme).toContain('This project targets **120 FPS**');
     expect(readme).toContain('executable experience route in `.ludoready/playtest.json`');
-    expect(readme).toContain('LudoReady owns the resulting `artifacts/playtest/latest/report.json`');
+    expect(readme).toContain('PlayReady owns the resulting `artifacts/playtest/latest/report.json`');
 
     const metadata = JSON.parse(
       await readFile(join(root, '.ludoready/project.json'), 'utf8'),
@@ -337,7 +337,7 @@ describe('createWorkspaceTemplate', () => {
     expect(agentsAfter.startsWith(LUDOREADY_HOST_RUNTIME_POLICY_START)).toBe(true);
     expect(skillAfter.startsWith('---\nname: ludoready-game-builder')).toBe(true);
     expect(skillAfter.indexOf(LUDOREADY_HOST_RUNTIME_POLICY_START)).toBeLessThan(
-      skillAfter.indexOf('# LudoReady Game Builder'),
+      skillAfter.indexOf('# PlayReady Game Builder'),
     );
     expect(withoutManagedPolicy(agentsAfter)).toBe(withoutManagedPolicy(agentsBefore));
     expect(withoutManagedPolicy(skillAfter)).toBe(withoutManagedPolicy(skillBefore));

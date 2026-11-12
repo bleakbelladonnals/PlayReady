@@ -2,7 +2,7 @@
 
 ## Supported versions
 
-LudoReady is currently a developer preview without versioned public releases. Security fixes target the latest commit on `main`.
+PlayReady is currently a developer preview without versioned public releases. Security fixes target the latest commit on `main`.
 
 ## Reporting a vulnerability
 
@@ -22,4 +22,4 @@ Do not include real API keys, account tokens, personal project files or third-pa
 
 ## Security model
 
-LudoReady treats the Electron Main process as the trusted host and the Renderer, Agent output, manifests and generated workspaces as untrusted inputs. The architecture and current trust boundaries are documented in [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md).
+PlayReady treats the Electron Main process as the trusted host and the Renderer, Agent output, manifests and generated workspaces as untrusted inputs. The architecture and current trust boundaries are documented in [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md).

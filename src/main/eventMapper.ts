@@ -124,7 +124,7 @@ export function inferStage(value: string, fallback: PipelineStage): PipelineStag
 /**
  * Resolve the visible production station from structured App Server facts.
  * Free-form assistant/reasoning/output deltas deliberately preserve the
- * current station: a single token such as "test" must never teleport LudoReady.
+ * current station: a single token such as "test" must never teleport PlayReady.
  */
 export function stageForNotification(
   notification: { method: string; params?: unknown },

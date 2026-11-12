@@ -61,7 +61,7 @@ try {
   await createWorkspaceTemplate(workspace, {
     id: 'harness-smoke',
     name: 'Harness Smoke',
-    idea: 'A temporary project used only to prove the LudoReady host harness end to end.',
+    idea: 'A temporary project used only to prove the PlayReady host harness end to end.',
     createdAt: new Date().toISOString(),
     model: null,
   });
@@ -111,7 +111,7 @@ try {
   }
 
   process.stdout.write(
-    `LudoReady harness smoke passed: ${model.displayName}; review=${result.review.verdict}; repair=${result.repaired}; phases=${phases.join('>')}\n`,
+    `PlayReady harness smoke passed: ${model.displayName}; review=${result.review.verdict}; repair=${result.repaired}; phases=${phases.join('>')}\n`,
   );
 } finally {
   await runtime.stop().catch(() => undefined);

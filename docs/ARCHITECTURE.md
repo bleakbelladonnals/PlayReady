@@ -1,4 +1,4 @@
-# LudoReady 架构
+# PlayReady 架构
 
 ## 核心选择
 
@@ -10,9 +10,15 @@
 - 游戏输出：每个项目一个独立工作区。Web 项目生产输出为 `dist/`；Godot 4 项目生产输出为 `build/web/`；两者均由本地只读 HTTP Preview Server 展示。
 - Godot：Godot 4 / GDScript、Compatibility renderer、单线程 Web export；编辑器和 Export Templates 必须精确版本匹配。
 
+## 品牌与旧版数据兼容
+
+产品显示名、窗口、系统菜单和安装包统一使用 PlayReady。首次安装使用 `PlayReady` 用户目录及 `PlayReady Games` 默认工程目录；升级时继续使用已有的 `LudoReady` 用户目录，保留项目、Codex 登录、媒体设置和桌面连接。已有工程目录不移动。
+
+Electron 在启动早期按应用名配置操作系统密钥。升级启动时先沿用旧密钥身份，再在 `will-finish-launching` 的前置回调中切换为 PlayReady，确保默认菜单使用新名称，已有加密设置仍可读取。`appId`、`.ludoready` 工程格式、持久化字段、IPC、环境变量及线上资源标识继续保持兼容。
+
 ## 为什么使用 App Server
 
-App Server 是 Codex 为富客户端提供的正式深度集成面，覆盖认证、会话历史、审批和流式 Agent 事件。LudoReady 是交互式桌面产品，因此使用 App Server，而不是面向 CI/自动作业的 SDK。
+App Server 是 Codex 为富客户端提供的正式深度集成面，覆盖认证、会话历史、审批和流式 Agent 事件。PlayReady 是交互式桌面产品，因此使用 App Server，而不是面向 CI/自动作业的 SDK。
 
 ## 进程边界
 

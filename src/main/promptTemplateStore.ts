@@ -44,7 +44,7 @@ interface PromptTemplateDocument {
 const DEFINITIONS: Readonly<Record<PromptTemplateId, Omit<PromptTemplate, 'id' | 'content' | 'enabled' | 'customized'>>> = {
   planner: {
     name: '规划 Agent',
-    description: '追加到需求拆解与生产规划阶段，不会替换 LudoReady 的安全和素材契约。',
+    description: '追加到需求拆解与生产规划阶段，不会替换 PlayReady 的安全和素材契约。',
   },
   implementer: {
     name: '实现 Agent',

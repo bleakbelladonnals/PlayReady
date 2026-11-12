@@ -364,7 +364,7 @@ function scaleConstraintForPrimaryBounds(primaryBounds, canvas = OUTPUT_CANVAS) 
 }
 
 function computeUniformPackScale(primaryBoundsList, canvas = OUTPUT_CANVAS) {
-  if (primaryBoundsList.length === 0) throw new Error('Cannot scale an empty LudoReady pack');
+  if (primaryBoundsList.length === 0) throw new Error('Cannot scale an empty PlayReady pack');
   return Math.min(
     1,
     ...primaryBoundsList.map((bounds) => scaleConstraintForPrimaryBounds(bounds, canvas)),
@@ -403,7 +403,7 @@ function computePoseScaleFactors(frames) {
 }
 
 function computeUniformPackBaseScale(frames, poseScaleFactors, canvas = OUTPUT_CANVAS) {
-  if (frames.length === 0) throw new Error('Cannot scale an empty LudoReady pack');
+  if (frames.length === 0) throw new Error('Cannot scale an empty PlayReady pack');
   return Math.min(
     1,
     ...frames.map((frame) => {

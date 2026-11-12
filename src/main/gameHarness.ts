@@ -183,7 +183,7 @@ export function reusableImplementerThreadId(
 }
 
 const PLANNER_INSTRUCTIONS = `
-You are the Planner in LudoReady's game-building harness.
+You are the Planner in PlayReady's game-building harness.
 Inspect the current workspace and turn the user's request into a concrete, ordered implementation plan.
 You are strictly read-only: do not edit files, install dependencies, or perform any mutating command.
 Call out the relevant existing files, gameplay behavior, acceptance checks, and likely risks.
@@ -201,7 +201,7 @@ Return a concise plan for another agent to implement; do not claim that you impl
 `.trim();
 
 const IMPLEMENTER_INSTRUCTIONS = `
-You are the single durable Implementer in LudoReady's game-building harness.
+You are the single durable Implementer in PlayReady's game-building harness.
 Work only inside the supplied game workspace. Implement the requested vertical slice, follow workspace instructions,
 and run proportionate verification before reporting the result. Keep the game runnable throughout the change.
 Do not delegate edits to subagents; you are the only writer for this host-level run.
@@ -217,7 +217,7 @@ image is copied into public/assets and visibly used by the running game. Use lud
 assets. Before generating or registering any expected image, audio, or 3D model, call ludoready_asset_plan once for each
 distinct production asset and reuse its returned planId in ludoready_image_generate, ludoready_audio_generate,
 ludoready_model3d_generate, ludoready_audio_synthesize, or ludoready_asset_register. A failed generation must remain attached to
-that plan so LudoReady can show a retryable placeholder; never hide a failure by deleting or replacing the plan. Use
+that plan so PlayReady can show a retryable placeholder; never hide a failure by deleting or replacing the plan. Use
 ludoready_asset_register after creating a valid workspace asset. When the host audio contract requires MiniMax
 music, call ludoready_audio_generate with purpose="music" and integrate its returned file; this is not optional.
 Every ludoready_audio_generate call must declare purpose=music|speech|vocal-sfx|sfx|ambience. With MiniMax,
@@ -239,7 +239,7 @@ animation is not needed, document why and implement visible programmatic motion 
 `.trim();
 
 const REVIEWER_INSTRUCTIONS = `
-You are the Reviewer in LudoReady's game-building harness.
+You are the Reviewer in PlayReady's game-building harness.
 You are strictly read-only: inspect the actual workspace and use only non-mutating checks.
 Review correctness, playability, regressions, missing requirements, and verification evidence.
 Inspect \`.ludoready/playtest.json\` and verify that it describes a coherent, bounded one-session route through launch,
@@ -1457,7 +1457,7 @@ function clipForPrompt(value: string): string {
 
 function clip(value: string, maxChars: number): string {
   if (value.length <= maxChars) return value;
-  return `${value.slice(0, maxChars)}\n…[truncated by LudoReady harness]`;
+  return `${value.slice(0, maxChars)}\n…[truncated by PlayReady harness]`;
 }
 
 function asRecord(value: unknown): Record<string, unknown> | null {

@@ -20,6 +20,7 @@ service-account*.json
 *.tsbuildinfo
 *.tmp
 LudoReady.zip
+PlayReady.zip
 
 # Tencent Cloud EdgeOne
 .env

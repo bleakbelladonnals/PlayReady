@@ -274,7 +274,7 @@ export class ProjectStore {
       if (index < 0) throw new Error(`Unknown project: ${id}`);
       const root = await resolveExistingProjectDirectory(projectDirectory, id);
       const duplicate = state.projects.find((project) => project.id !== id && project.root === root);
-      if (duplicate) throw new Error('这个文件夹已经绑定到另一个 LudoReady 游戏。');
+      if (duplicate) throw new Error('这个文件夹已经绑定到另一个 PlayReady 游戏。');
       const next: ProjectRecord = {
         ...state.projects[index]!,
         root,
@@ -829,13 +829,13 @@ function validatedGameEngine(value: unknown, projectId: string): GameEngine {
 
 function validatedLudoReadyPackOverrideId(value: unknown, projectId: string): LudoReadyPackId | null {
   if (value !== null && !isLudoReadyPackId(value)) {
-    throw new Error(`Project ${projectId} has an invalid LudoReady pack override`);
+    throw new Error(`Project ${projectId} has an invalid PlayReady pack override`);
   }
   return value;
 }
 
 function validatedLudoReadyCrewOverride(value: unknown, projectId: string): LudoReadyCrewMember[] | null {
-  return value === null ? null : validatedLudoReadyCrew(value, `Project ${projectId} LudoReady crew override`);
+  return value === null ? null : validatedLudoReadyCrew(value, `Project ${projectId} PlayReady crew override`);
 }
 
 function validatedLudoReadyCrew(value: unknown, field: string): LudoReadyCrewMember[] {
@@ -884,24 +884,24 @@ function validateSettings(value: unknown): AppSettings {
     ? DEFAULT_LUDOREADY_STAGE_MODE
     : value.defaultLudoReadyStageMode;
   if (!isLudoReadyStageMode(defaultLudoReadyStageMode)) {
-    throw new Error('Default LudoReady stage mode setting is invalid');
+    throw new Error('Default PlayReady stage mode setting is invalid');
   }
   const defaultLudoReadySoloSceneId = value.defaultLudoReadySoloSceneId === undefined
     ? DEFAULT_LUDOREADY_SOLO_SCENE_ID
     : value.defaultLudoReadySoloSceneId;
   if (!isLudoReadyPackId(defaultLudoReadySoloSceneId)) {
-    throw new Error('Default LudoReady solo scene setting is invalid');
+    throw new Error('Default PlayReady solo scene setting is invalid');
   }
   const defaultLudoReadySceneId = value.defaultLudoReadySceneId === undefined
     ? DEFAULT_LUDOREADY_SCENE_ID
     : value.defaultLudoReadySceneId;
   if (!isLudoReadySceneId(defaultLudoReadySceneId)) {
-    throw new Error('Default LudoReady scene setting is invalid');
+    throw new Error('Default PlayReady scene setting is invalid');
   }
   const defaultLudoReadyPackId = value.defaultLudoReadyPackId === undefined
     ? DEFAULT_LUDOREADY_PACK_ID
     : value.defaultLudoReadyPackId;
-  if (!isLudoReadyPackId(defaultLudoReadyPackId)) throw new Error('Default LudoReady pack setting is invalid');
+  if (!isLudoReadyPackId(defaultLudoReadyPackId)) throw new Error('Default PlayReady pack setting is invalid');
   const defaultLudoReadyCrew = value.defaultLudoReadyCrew === undefined
     ? DEFAULT_LUDOREADY_CREW
     : value.defaultLudoReadyCrew;
@@ -914,7 +914,7 @@ function validateSettings(value: unknown): AppSettings {
     defaultLudoReadySoloSceneId,
     defaultLudoReadySceneId,
     defaultLudoReadyPackId,
-    defaultLudoReadyCrew: validatedLudoReadyCrew(defaultLudoReadyCrew, 'Default LudoReady crew setting'),
+    defaultLudoReadyCrew: validatedLudoReadyCrew(defaultLudoReadyCrew, 'Default PlayReady crew setting'),
     theme: value.theme,
   };
 }
@@ -971,18 +971,18 @@ export async function resolveExistingProjectDirectory(
     metadataInfo = await lstat(metadataPath);
   } catch (error) {
     if (isNodeError(error, 'ENOENT')) {
-      throw new Error('所选文件夹不是 LudoReady 游戏文件夹：缺少 .ludoready/project.json。');
+      throw new Error('所选文件夹不是 PlayReady 游戏文件夹：缺少 .ludoready/project.json。');
     }
     throw error;
   }
   if (metadataInfo.isSymbolicLink() || !metadataInfo.isFile() || metadataInfo.size > MAX_FILE_BYTES) {
-    throw new Error('所选文件夹的 LudoReady 项目标记无效。');
+    throw new Error('所选文件夹的 PlayReady 项目标记无效。');
   }
   let metadata: unknown;
   try {
     metadata = JSON.parse(await readFile(metadataPath, 'utf8'));
   } catch {
-    throw new Error('所选文件夹的 LudoReady 项目标记无法读取。');
+    throw new Error('所选文件夹的 PlayReady 项目标记无法读取。');
   }
   if (!metadata || typeof metadata !== 'object' || (metadata as { id?: unknown }).id !== validatedId(projectId)) {
     throw new Error('所选文件夹不属于当前游戏，请选择改名前的同一个游戏文件夹。');

@@ -1,11 +1,11 @@
 name: Bug report
-description: Report a reproducible problem in LudoReady
+description: Report a reproducible problem in PlayReady
 title: "[Bug]: "
 labels: [bug]
 body:
   - type: markdown
     attributes:
-      value: Thanks for helping improve LudoReady. Remove secrets and private project data before submitting.
+      value: Thanks for helping improve PlayReady. Remove secrets and private project data before submitting.
   - type: input
     id: version
     attributes:

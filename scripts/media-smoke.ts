@@ -33,7 +33,7 @@ try {
   await createWorkspaceTemplate(workspace, {
     id: 'media-smoke',
     name: 'Media Smoke',
-    idea: 'Verify LudoReady dynamic media tools through the real Codex App Server.',
+    idea: 'Verify PlayReady dynamic media tools through the real Codex App Server.',
     createdAt: new Date().toISOString(),
     model: null,
   });
@@ -50,7 +50,7 @@ try {
     ephemeral: true,
     dynamicTools: MEDIA_DYNAMIC_TOOLS,
     developerInstructions:
-      'This is an automated LudoReady media tool test. Use the provided dynamic tool exactly as requested. Do not run shell commands or edit files directly.',
+      'This is an automated PlayReady media tool test. Use the provided dynamic tool exactly as requested. Do not run shell commands or edit files directly.',
   });
   const result = await runtime.runTurn({
     threadId,
@@ -71,7 +71,7 @@ try {
   if (result.status !== 'completed') throw new Error(`Media smoke turn ended with ${result.status}.`);
 
   process.stdout.write(
-    `LudoReady media smoke passed: ${model.displayName}; ${audio.relativePath}; ${audio.size} bytes\n`,
+    `PlayReady media smoke passed: ${model.displayName}; ${audio.relativePath}; ${audio.size} bytes\n`,
   );
 } finally {
   await runtime.stop().catch(() => undefined);

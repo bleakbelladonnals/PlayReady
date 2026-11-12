@@ -96,7 +96,7 @@ describe('project infrastructure', () => {
     await expect(store.get(project.id)).resolves.toMatchObject({ id: project.id });
   });
 
-  it('persists global and project LudoReady packs while validating their ids', async () => {
+  it('persists global and project PlayReady packs while validating their ids', async () => {
     const root = await mkdtemp(join(tmpdir(), 'ludoready-pack-store-test-'));
     roots.push(root);
     const storageFile = join(root, 'data/projects.json');
@@ -125,7 +125,7 @@ describe('project infrastructure', () => {
     );
     await expect(store.saveSettings({
       defaultLudoReadyPackId: 'unknown-pack' as 'classic',
-    })).rejects.toThrow('Default LudoReady pack setting is invalid');
+    })).rejects.toThrow('Default PlayReady pack setting is invalid');
 
     const reloaded = new ProjectStore(storageFile, workspace);
     await expect(reloaded.getSettings()).resolves.toMatchObject({
@@ -139,7 +139,7 @@ describe('project infrastructure', () => {
     });
   });
 
-  it('persists the default LudoReady scene while rejecting unknown scene ids', async () => {
+  it('persists the default PlayReady scene while rejecting unknown scene ids', async () => {
     const root = await mkdtemp(join(tmpdir(), 'ludoready-scene-store-test-'));
     roots.push(root);
     const storageFile = join(root, 'data/projects.json');
@@ -156,7 +156,7 @@ describe('project infrastructure', () => {
     });
     await expect(store.saveSettings({
       defaultLudoReadySceneId: 'unknown-scene' as never,
-    })).rejects.toThrow('Default LudoReady scene setting is invalid');
+    })).rejects.toThrow('Default PlayReady scene setting is invalid');
 
     const reloaded = new ProjectStore(storageFile, workspace);
     await expect(reloaded.getSettings()).resolves.toMatchObject({
@@ -164,7 +164,7 @@ describe('project infrastructure', () => {
     });
   });
 
-  it('persists the default LudoReady stage mode and solo scene while validating both', async () => {
+  it('persists the default PlayReady stage mode and solo scene while validating both', async () => {
     const root = await mkdtemp(join(tmpdir(), 'ludoready-stage-store-test-'));
     roots.push(root);
     const storageFile = join(root, 'data/projects.json');
@@ -184,10 +184,10 @@ describe('project infrastructure', () => {
     });
     await expect(store.saveSettings({
       defaultLudoReadyStageMode: 'unknown-mode' as never,
-    })).rejects.toThrow('Default LudoReady stage mode setting is invalid');
+    })).rejects.toThrow('Default PlayReady stage mode setting is invalid');
     await expect(store.saveSettings({
       defaultLudoReadySoloSceneId: 'unknown-scene' as never,
-    })).rejects.toThrow('Default LudoReady solo scene setting is invalid');
+    })).rejects.toThrow('Default PlayReady solo scene setting is invalid');
 
     const reloaded = new ProjectStore(storageFile, workspace);
     await expect(reloaded.getSettings()).resolves.toMatchObject({
@@ -196,7 +196,7 @@ describe('project infrastructure', () => {
     });
   });
 
-  it('persists validated global and project LudoReady crews without visual asset data', async () => {
+  it('persists validated global and project PlayReady crews without visual asset data', async () => {
     const root = await mkdtemp(join(tmpdir(), 'ludoready-crew-store-test-'));
     roots.push(root);
     const storageFile = join(root, 'data/projects.json');
@@ -381,7 +381,7 @@ describe('project infrastructure', () => {
     ]);
   });
 
-  it('adds solo defaults to legacy settings without replacing existing LudoReady choices', async () => {
+  it('adds solo defaults to legacy settings without replacing existing PlayReady choices', async () => {
     const root = await mkdtemp(join(tmpdir(), 'ludoready-stage-migration-test-'));
     roots.push(root);
     const storageFile = join(root, 'data/projects.json');

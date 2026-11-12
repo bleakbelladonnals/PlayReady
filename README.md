@@ -1,8 +1,8 @@
 <p align="center">
-  <img src="docs/images/ludoready-app-icon.png" width="112" alt="LudoReady app icon">
+  <img src="docs/images/playready-app-icon.png" width="112" alt="PlayReady app icon">
 </p>
 
-<h1 align="center">LudoReady</h1>
+<h1 align="center">PlayReady</h1>
 
 <p align="center">
   <strong>Turn one game idea into a reviewed, playable Web or Godot game.</strong><br>
@@ -21,13 +21,13 @@
   <a href="README.zh-CN.md"><strong>简体中文</strong></a>
 </p>
 
-![LudoReady production workbench showing the agent pipeline, playable preview, assets and project files](docs/images/ludoready-workbench.png)
+![PlayReady production workbench showing the agent pipeline, playable preview, assets and project files](docs/images/playready-workbench.png)
 
-LudoReady gives Codex a bounded game-production loop instead of asking one agent to improvise everything in a single pass. A read-only Planner scopes the work, an Implementer builds inside an isolated project directory, an independent Reviewer checks the result, and the host builds and plays the production output before completion. Failed review, build or playtest checks return to the same Implementer for up to three repair rounds.
+PlayReady gives Codex a bounded game-production loop instead of asking one agent to improvise everything in a single pass. A read-only Planner scopes the work, an Implementer builds inside an isolated project directory, an independent Reviewer checks the result, and the host builds and plays the production output before completion. Failed review, build or playtest checks return to the same Implementer for up to three repair rounds.
 
 > **Current status:** developer preview for macOS. No signed or notarized binary is published yet; run it from source. The output is a standalone Web or Godot 4 project in your own workspace.
 
-## Why LudoReady
+## Why PlayReady
 
 | | What you get |
 | --- | --- |
@@ -35,7 +35,7 @@ LudoReady gives Codex a bounded game-production loop instead of asking one agent
 | **Review-gated production loop** | Planner → Implementer → Reviewer → formal build → automated playtest. Failed checks trigger up to three bounded repair rounds. |
 | **Automatic experience evaluation** | A sandboxed hidden browser exercises core controls, captures evidence, and checks visible gameplay, animation continuity and runtime errors. |
 | **Real media pipeline** | Route images, music, speech, sound effects and 3D through configured providers, Codex ImageGen, imported assets or procedural fallbacks. Failed assets remain visible as retryable placeholders. |
-| **A workspace you own** | Every game is a normal local project. Inspect the files, continue with Codex, commit it to Git, or take it outside LudoReady. |
+| **A workspace you own** | Every game is a normal local project. Inspect the files, continue with Codex, commit it to Git, or take it outside PlayReady. |
 | **Built to extend** | Add media providers, Codex Skills, MCP servers, agent prompts, project templates, Godot export targets, or an entirely different workbench UI. |
 
 ## Quick start
@@ -48,16 +48,16 @@ LudoReady gives Codex a bounded game-production loop instead of asking one agent
 - an available image route: a configured image provider or Codex ImageGen
 - Godot 4 with exactly matching Web export templates, only when the Agent selects Godot
 
-Run these commands from the LudoReady project directory:
+Run these commands from the PlayReady project directory:
 
 ```bash
 npm ci
 npm run dev
 ```
 
-On first launch, open **Settings → Codex account** and sign in. LudoReady uses an app-private `userData/codex-home`; it does not overwrite your global `~/.codex` configuration.
+On first launch, open **Settings → Codex account** and sign in. PlayReady uses an app-private `userData/codex-home`; it does not overwrite your global `~/.codex` configuration.
 
-If Codex cannot be located automatically, point LudoReady at a binary explicitly:
+If Codex cannot be located automatically, point PlayReady at a binary explicitly:
 
 ```bash
 LUDOREADY_CODEX_BIN=/absolute/path/to/codex npm run dev
@@ -116,11 +116,11 @@ flowchart LR
 
 The workbench visualizes `Brief → Scaffold → GDD → Assets → World → Code → Verify → Complete`. Those stages explain progress; the Reviewer and host proof gate decide whether a run is actually complete.
 
-![LudoReady mascot orchestrating code, animation, 3D, audio and playable worlds](docs/images/ludoready-game-agent-poster.png)
+![PlayReady mascot orchestrating code, animation, 3D, audio and playable worlds](docs/images/playready-game-agent-poster.png)
 
 ## Fork and customize
 
-LudoReady is intentionally organized around replaceable boundaries. A useful fork can start small:
+PlayReady is intentionally organized around replaceable boundaries. A useful fork can start small:
 
 | Goal | Start here |
 | --- | --- |
@@ -142,7 +142,7 @@ Good first directions include a new provider adapter, Windows/Linux packaging, s
 - playable loopback preview, project files, and a unified asset library
 - Agent-selected Web or Godot 4 workspace with environment and export-template checks
 - host-managed timing and animation contracts without a user-facing FPS strategy selector
-- LudoReady crew characters, role-based motion, selectable studio scenes and an animated fishing background
+- PlayReady crew characters, role-based motion, selectable studio scenes and an animated fishing background
 - persistent projects and resumable Codex Implementer threads
 
 ### Media and extension layer

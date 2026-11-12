@@ -505,7 +505,7 @@ describe('game harness required ImageGen contract', () => {
     expect(prompt).toContain('"durationMs":16..3000');
     expect(prompt).toContain('canvas-not-blank|screen-change|text-visible|element-visible');
     expect(prompt).toContain('Do not include JavaScript expressions, shell commands, URLs, absolute');
-    expect(prompt).toContain('Only the LudoReady host owns `artifacts/playtest/`');
+    expect(prompt).toContain('Only the PlayReady host owns `artifacts/playtest/`');
     expect(prompt).toContain('artifacts/playtest/latest/report.json');
     expect(prompt).toContain('artifacts/playtest/latest/screenshots/');
     expect(prompt).toContain('implausibly unchanged before/after frames');

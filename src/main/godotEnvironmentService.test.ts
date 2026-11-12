@@ -84,7 +84,7 @@ describe('GodotEnvironmentService', () => {
     expect(status.canExportProjects).toBe(true);
   });
 
-  it('requires a Web template for the LudoReady integrated export capability', async () => {
+  it('requires a Web template for the PlayReady integrated export capability', async () => {
     const root = await temporaryRoot('ludoready-godot-native-only-');
     const binary = await fakeExecutable(root, 'bin/godot');
     const versionPath = join(root, 'templates/4.7.1.stable');

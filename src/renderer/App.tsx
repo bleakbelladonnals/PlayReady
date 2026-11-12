@@ -253,7 +253,7 @@ export function App() {
   function ensureRunReady(): boolean {
     setError('');
     if (!runtime) {
-      setError('LudoReady 正在读取 Codex 运行时，请稍后再试。');
+      setError('PlayReady 正在读取 Codex 运行时，请稍后再试。');
       return false;
     }
     if (runtime.state !== 'ready') {
@@ -376,7 +376,7 @@ export function App() {
       await window.ludoready.retryAssetPlan(selected.id, plan.id);
       setRefreshSignal((value) => value + 1);
       await runProject(
-        `重新生成并完整接入素材工单 ${plan.id}（${plan.kind} / ${plan.name}）。必须使用该 planId 调用对应的 LudoReady 素材工具；生成成功后更新生产代码中的真实引用，运行构建和玩法验证，直到宿主验收通过。不要停留在占位或仅生成未接入状态。`,
+        `重新生成并完整接入素材工单 ${plan.id}（${plan.kind} / ${plan.name}）。必须使用该 planId 调用对应的 PlayReady 素材工具；生成成功后更新生产代码中的真实引用，运行构建和玩法验证，直到宿主验收通过。不要停留在占位或仅生成未接入状态。`,
         selected.model ?? settings.defaultModel,
         settings.defaultEffort,
       );
@@ -456,7 +456,7 @@ export function App() {
     return (
       <main className="loading-screen">
         <div className="loading-brand">
-          <div><strong>LudoReady</strong><small>GAME PRODUCTION SYSTEM</small></div>
+          <div><strong>PlayReady</strong><small>GAME PRODUCTION SYSTEM</small></div>
         </div>
         {loadingError ? (
           <div className="loading-error" role="alert">
@@ -532,7 +532,7 @@ export function App() {
           </button>
 
           <div className="topbar-project">
-            <strong>{selected?.name ?? 'LudoReady Workspace'}</strong>
+            <strong>{selected?.name ?? 'PlayReady Workspace'}</strong>
             {selected ? (
               <>
                 <span className={`engine-chip engine-${selected.engine}`}>
@@ -582,7 +582,7 @@ export function App() {
             <section className="production-center">
               <header className="agent-pane-heading">
                 <div>
-                  <span>LUDOREADY AGENT</span>
+                  <span>PLAYREADY AGENT</span>
                   <button
                     className="agent-project-name"
                     type="button"

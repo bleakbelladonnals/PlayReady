@@ -135,7 +135,7 @@ export class DesktopWebBridge {
       }
       const download = /^\/desktop\/download\/([a-f0-9-]{36})$/u.exec(url.pathname);
       if (download && request.method === 'GET') {
-        response.setHeader('Content-Disposition', `attachment; filename="ludoready-${download[1]}.zip"`);
+        response.setHeader('Content-Disposition', `attachment; filename="playready-${download[1]}.zip"`);
         await this.#sendBinary(response, await this.#options.download(download[1]!), false, false); return;
       }
       json(response, 404, { error: '操作不存在' }); return;

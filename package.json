@@ -1,10 +1,18 @@
 {
-  "name": "ludoready",
+  "name": "playready",
   "version": "0.1.0",
   "private": true,
   "type": "module",
   "description": "Local-first desktop agent that turns a prompt into a reviewed, playable Web or Godot game with Codex App Server",
-  "author": "LudoReady",
+  "author": "PlayReady",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bleakbelladonnals/PlayReady.git"
+  },
+  "bugs": {
+    "url": "https://github.com/bleakbelladonnals/PlayReady/issues"
+  },
+  "homepage": "https://github.com/bleakbelladonnals/PlayReady#readme",
   "keywords": [
     "codex",
     "codex-app-server",
@@ -91,7 +99,7 @@
   },
   "build": {
     "appId": "ai.ludoready.desktop",
-    "productName": "LudoReady",
+    "productName": "PlayReady",
     "asar": true,
     "asarUnpack": [
       "node_modules/@openai/codex-*/vendor/**/*"
@@ -116,7 +124,7 @@
     },
     "dmg": {
       "backgroundColor": "#11120f",
-      "title": "LudoReady ${version}"
+      "title": "PlayReady ${version}"
     }
   }
 }

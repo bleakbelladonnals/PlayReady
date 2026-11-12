@@ -22,7 +22,7 @@ npm run desktop:web:pair
 
 命令会把私人连接链接复制到这台 Mac 的剪贴板。通过仅你自己可访问的方式把链接传到另一台电脑，在那里粘贴到浏览器打开。网页会自动完成配对，然后显示这台 Mac 上的 Codex 账号状态、项目和制作流程。下次同一浏览器打开 `https://ludoready.bleakbelladonna.com/` 时可使用已有会话；会话过期后重新配对即可。不要把私人连接链接发给其他人。
 
-本机页面为 `http://127.0.0.1:8790/`。受保护的连接地址保存在本机 LudoReady 用户目录的 `desktop-web/connection.json` 中；不要公开该文件或带连接密钥的完整链接。
+本机页面为 `http://127.0.0.1:8790/`。受保护的连接地址保存在本机 PlayReady 用户目录的 `desktop-web/connection.json` 中；不要公开该文件或带连接密钥的完整链接。
 
 ## 使用
 

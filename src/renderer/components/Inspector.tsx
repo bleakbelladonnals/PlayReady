@@ -395,7 +395,7 @@ export function Inspector({
       <div className="inspector-toolbar">
         <span>
           {tab === 'preview'
-            ? showProductionScene ? 'LUDOREADY PRODUCTION STUDIO' : 'LOCAL GAME PREVIEW'
+            ? showProductionScene ? 'PLAYREADY PRODUCTION STUDIO' : 'LOCAL GAME PREVIEW'
             : tab === 'assets'
               ? 'GAME ASSET LIBRARY'
               : 'PROJECT FILES'}
@@ -418,7 +418,7 @@ export function Inspector({
                 ref={crewToggleRef}
                 aria-expanded={crewEditorOpen}
                 aria-controls="project-ludoready-crew-editor"
-                title="编辑项目 LudoReady 制作编队"
+                title="编辑项目 PlayReady 制作编队"
                 onClick={() => setCrewEditorOpen((open) => !open)}
               >
                 <Users size={13} aria-hidden="true" />
@@ -435,7 +435,7 @@ export function Inspector({
                 <strong>{resolvedLudoReadyCrew.length}人</strong>
               </button>
             ) : (
-              <div className="inspector-solo-indicator" aria-label={`单人搭档：${resolvedLudoReadyPack?.avatarLabel ?? 'LudoReady'}`}>
+              <div className="inspector-solo-indicator" aria-label={`单人搭档：${resolvedLudoReadyPack?.avatarLabel ?? 'PlayReady'}`}>
                 {resolvedLudoReadyPack ? <img src={resolvedLudoReadyPack.avatarImage} alt="" draggable={false} /> : null}
                 <span>
                   <small>SOLO</small>
@@ -494,7 +494,7 @@ export function Inspector({
         <aside
           className="inspector-crew-panel"
           id="project-ludoready-crew-editor"
-          aria-label="项目 LudoReady 制作编队"
+          aria-label="项目 PlayReady 制作编队"
           onKeyDown={(event) => {
             if (event.key !== 'Escape') return;
             event.stopPropagation();
@@ -532,7 +532,7 @@ export function Inspector({
             value={resolvedLudoReadyCrew}
             disabled={project.status === 'running'}
             busy={crewSaving}
-            label="项目 LudoReady 制作编队"
+            label="项目 PlayReady 制作编队"
             onChange={(crew) => void selectLudoReadyCrew(crew)}
           />
           <footer>
@@ -1013,7 +1013,7 @@ function AssetStudio({
         : '宿主私有证明中没有可信生成图片；请检查图像 API 或 Codex ImageGen 后继续制作并重新验证。'
       : hasTrustedUnreferencedImage
         ? '宿主已验证图片来源，下一步需要让游戏生产代码真实加载并显示它。'
-        : 'LudoReady 优先使用已配置图像 API，否则回退 Codex ImageGen；成功后会自动出现在这里。';
+        : 'PlayReady 优先使用已配置图像 API，否则回退 Codex ImageGen；成功后会自动出现在这里。';
     return (
       <div className={`asset-empty requirement-imagegen${terminal ? ' is-error' : ''}`}>
         <ImageIcon size={28} />

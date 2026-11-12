@@ -63,9 +63,9 @@ export function BrowserDesktopApp({ bridge }: { bridge: DesktopBridge }) {
   return (
     <main className="desktop-connection-page">
       <section className="desktop-connection-panel" aria-labelledby="desktop-connection-title">
-        <p className="desktop-connection-brand">LUDOREADY</p>
+        <p className="desktop-connection-brand">PLAYREADY</p>
         <h1 id="desktop-connection-title">连接你的游戏工作台</h1>
-        <p>这是你的私人工作台。它会连接到运行 LudoReady 和 Codex 的那台电脑；请保持那台电脑开机、联网且后台运行。</p>
+        <p>这是你的私人工作台。它会连接到运行 PlayReady 和 Codex 的那台电脑；请保持那台电脑开机、联网且后台运行。</p>
         <p>第一次在另一台电脑使用时，在这台电脑的项目目录运行 <code>npm run desktop:web:pair</code>，把复制的私人连接链接发给自己，再到另一台电脑粘贴打开。</p>
         {connection.requiresKey ? (
           <form onSubmit={submit}>

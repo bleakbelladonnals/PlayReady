@@ -1,4 +1,5 @@
 import { randomUUID } from 'node:crypto';
+import { existsSync } from 'node:fs';
 import { lstat, mkdir, readFile, realpath, writeFile } from 'node:fs/promises';
 import { homedir } from 'node:os';
 import { basename, dirname, extname, isAbsolute, join, relative, resolve, sep } from 'node:path';
@@ -125,9 +126,18 @@ import {
 const moduleDirectory = dirname(fileURLToPath(import.meta.url));
 const smokeCapture = process.env.LUDOREADY_SMOKE_CAPTURE?.trim() || null;
 const desktopWebEnabled = process.env.LUDOREADY_DESKTOP_WEB === '1';
-if (smokeCapture) app.setPath('userData', resolve('.ludoready-smoke/user-data'));
-
-app.setName('LudoReady');
+// Keep existing projects, Codex sign-in and settings when upgrading from LudoReady.
+const legacyUserData = join(app.getPath('appData'), 'LudoReady');
+const useLegacyUserData = !smokeCapture && existsSync(legacyUserData);
+// Electron configures the OS encryption key before will-finish-launching. Keep
+// that identity for existing secrets, then switch the name before menus are built.
+app.setName(useLegacyUserData ? 'LudoReady' : 'PlayReady');
+if (useLegacyUserData) {
+  app.prependOnceListener('will-finish-launching', () => app.setName('PlayReady'));
+}
+app.setPath('userData', smokeCapture
+  ? resolve('.ludoready-smoke/user-data')
+  : useLegacyUserData ? legacyUserData : join(app.getPath('appData'), 'PlayReady'));
 
 const runtime = new CodexAppServer({
   codexHome: desktopWebEnabled ? undefined : join(app.getPath('userData'), 'codex-home'),
@@ -172,8 +182,8 @@ if (!hasSingleInstanceLock) {
   app.exit(0);
 } else {
   void app.whenReady().then(launch).catch((error) => {
-    if (smokeCapture) process.stderr.write(`LudoReady UI smoke failed: ${asError(error).message}\n`);
-    else dialog.showErrorBox('LudoReady 无法启动', asError(error).message);
+    if (smokeCapture) process.stderr.write(`PlayReady UI smoke failed: ${asError(error).message}\n`);
+    else dialog.showErrorBox('PlayReady 无法启动', asError(error).message);
     app.exit(1);
   });
   app.on('second-instance', () => {
@@ -207,7 +217,7 @@ async function launch(): Promise<void> {
   const userData = app.getPath('userData');
   const defaultWorkspace = smokeCapture
     ? join(userData, 'smoke-projects')
-    : join(homedir(), 'LudoReady Games');
+    : join(homedir(), 'PlayReady Games');
   projectStore = new ProjectStore({
     storageFile: join(userData, 'projects.json'),
     defaultWorkspace,
@@ -311,7 +321,7 @@ async function createWindow(): Promise<void> {
     minWidth: 760,
     minHeight: 620,
     backgroundColor: '#11120f',
-    title: 'LudoReady',
+    title: 'PlayReady',
     show: false,
     webPreferences: {
       preload: join(moduleDirectory, 'preload.cjs'),
@@ -952,7 +962,7 @@ function bindIpc(): void {
   ) => {
     const id = validateProjectId(projectId);
     if (packId !== null && !isLudoReadyPackId(packId)) {
-      throw new Error('无效的 LudoReady 主题包');
+      throw new Error('无效的 PlayReady 主题包');
     }
     return updateProject(id, { ludoreadyPackOverrideId: packId });
   });
@@ -962,7 +972,7 @@ function bindIpc(): void {
     crew: unknown,
   ) => {
     const id = validateProjectId(projectId);
-    if (crew !== null && !isLudoReadyCrew(crew)) throw new Error('无效的 LudoReady 协作编队');
+    if (crew !== null && !isLudoReadyCrew(crew)) throw new Error('无效的 PlayReady 协作编队');
     return updateProject(id, {
       ludoreadyCrewOverride: crew === null
         ? null
@@ -2070,7 +2080,7 @@ async function ensureProjectLocation(
   while (true) {
     const options: Electron.OpenDialogOptions = {
       title: `重新连接“${project.name}”的项目文件夹`,
-      message: '请选择这个游戏改名或移动后的文件夹，LudoReady 会核对项目身份并更新保存路径。',
+      message: '请选择这个游戏改名或移动后的文件夹，PlayReady 会核对项目身份并更新保存路径。',
       buttonLabel: '重新连接',
       defaultPath: dirname(project.root),
       properties: ['openDirectory'],
@@ -2210,7 +2220,7 @@ function handle(
   desktopHandlers.set(channel, listener);
   ipcMain.handle(channel, (event, ...args) => {
     assertTrustedRenderer(event);
-    if (shuttingDown) throw new Error('LudoReady 正在退出');
+    if (shuttingDown) throw new Error('PlayReady 正在退出');
     return listener(event, ...args);
   });
 }
@@ -2297,7 +2307,7 @@ async function startDesktopWeb(): Promise<void> {
     localUrl: desktopWeb.connectUrl,
     remoteUrl: process.env.LUDOREADY_DESKTOP_ORIGIN ? `${process.env.LUDOREADY_DESKTOP_ORIGIN}/#connect=${encodeURIComponent(token)}` : null,
   }), { mode: 0o600 });
-  process.stdout.write(`LudoReady desktop Web ready at ${desktopWeb.origin}\n`);
+  process.stdout.write(`PlayReady desktop Web ready at ${desktopWeb.origin}\n`);
   if (process.env.LUDOREADY_DESKTOP_OPEN_BROWSER === '1') await shell.openExternal(
     process.env.LUDOREADY_DESKTOP_ORIGIN ? `${process.env.LUDOREADY_DESKTOP_ORIGIN}/#connect=${encodeURIComponent(token)}` : desktopWeb.connectUrl,
   );
@@ -2387,7 +2397,7 @@ async function captureSmoke(window: BrowserWindow, target: string): Promise<void
     `Boolean(document.querySelector('.app-shell')) && !document.querySelector('.loading-error')`,
     true,
   ) as boolean;
-  if (!healthy) throw new Error('Renderer did not reach the LudoReady workbench');
+  if (!healthy) throw new Error('Renderer did not reach the PlayReady workbench');
   const smokeTheme = process.env.LUDOREADY_SMOKE_THEME;
   if (smokeTheme === 'light' || smokeTheme === 'dark') {
     await window.webContents.executeJavaScript(
@@ -2434,13 +2444,13 @@ async function captureSmoke(window: BrowserWindow, target: string): Promise<void
       })()`,
       true,
     ) as boolean;
-    if (!roundTrip) throw new Error('Collapsed LudoReady monogram was not available');
+    if (!roundTrip) throw new Error('Collapsed PlayReady monogram was not available');
     await delay(200);
     const railExpanded = await window.webContents.executeJavaScript(
       `document.querySelector('.project-rail.mode-dashboard')?.classList.contains('is-collapsed') === false`,
       true,
     ) as boolean;
-    if (!railExpanded) throw new Error('Collapsed LudoReady monogram did not expand the home rail');
+    if (!railExpanded) throw new Error('Collapsed PlayReady monogram did not expand the home rail');
     await window.webContents.executeJavaScript(
       `document.querySelector('[aria-label="收起首页侧栏"]')?.click()`,
       true,
@@ -2466,7 +2476,7 @@ async function captureSmoke(window: BrowserWindow, target: string): Promise<void
       throw new Error(`Rotating prompt did not complete a delete/type cycle: ${JSON.stringify(lengths)}`);
     }
     process.stdout.write(
-      `LudoReady rotating prompt passed; samples=${samples.length}; min=${Math.min(...lengths)}; max=${Math.max(...lengths)}\n`,
+      `PlayReady rotating prompt passed; samples=${samples.length}; min=${Math.min(...lengths)}; max=${Math.max(...lengths)}\n`,
     );
   }
   if (process.env.LUDOREADY_SMOKE_MODEL_MENU === '1') {
@@ -2519,7 +2529,7 @@ async function captureSmoke(window: BrowserWindow, target: string): Promise<void
     if (!menu || menu.width <= 0 || menu.height <= 0 || menu.display === 'none' || menu.visibility === 'hidden' || menu.opacity === '0' || menu.options === 0) {
       throw new Error(`Model picker did not open correctly: ${JSON.stringify(menu)}`);
     }
-    process.stdout.write(`LudoReady model picker opened ${JSON.stringify(menu)}\n`);
+    process.stdout.write(`PlayReady model picker opened ${JSON.stringify(menu)}\n`);
   }
   if (process.env.LUDOREADY_SMOKE_VIEW === 'settings-ludoready') {
     await window.webContents.executeJavaScript(
@@ -2549,14 +2559,14 @@ async function captureSmoke(window: BrowserWindow, target: string): Promise<void
     const selectedSection = await window.webContents.executeJavaScript(
       `(() => {
         const trigger = Array.from(document.querySelectorAll('.settings-nav button'))
-          .find((node) => node.textContent?.includes('LudoReady 工坊'));
+          .find((node) => node.textContent?.includes('PlayReady 工坊'));
         if (!(trigger instanceof HTMLButtonElement)) return false;
         trigger.click();
         return true;
       })()`,
       true,
     ) as boolean;
-    if (!selectedSection) throw new Error('LudoReady workshop settings section was not available');
+    if (!selectedSection) throw new Error('PlayReady workshop settings section was not available');
     await delay(500);
     const crewCards = await window.webContents.executeJavaScript(
       `(() => {
@@ -2633,10 +2643,10 @@ async function captureSmoke(window: BrowserWindow, target: string): Promise<void
       || crewCards.sceneImages !== expectedPackCount + LUDOREADY_SCENE_IDS.length
       || crewCards.loadedSceneImages !== expectedPackCount + LUDOREADY_SCENE_IDS.length
       || crewCards.activeMode !== 'solo') {
-      throw new Error(`LudoReady crew cards did not render correctly: ${JSON.stringify(crewCards)}`);
+      throw new Error(`PlayReady crew cards did not render correctly: ${JSON.stringify(crewCards)}`);
     }
     process.stdout.write(
-      `LudoReady workshop settings rendered one solo character, ${crewCards.soloScenes} solo scenes, and ${crewCards.multiplayerScenes} multiplayer scenes\n`,
+      `PlayReady workshop settings rendered one solo character, ${crewCards.soloScenes} solo scenes, and ${crewCards.multiplayerScenes} multiplayer scenes\n`,
     );
     const settingsScrollY = Number.parseInt(process.env.LUDOREADY_SMOKE_SETTINGS_SCROLL_Y ?? '', 10);
     if (Number.isFinite(settingsScrollY)) {
@@ -2707,11 +2717,11 @@ async function captureSmoke(window: BrowserWindow, target: string): Promise<void
         || sceneState.id !== expectedScene
         || !sceneState.loaded
         || !fishingSceneReady) {
-        throw new Error(`LudoReady runtime background did not load correctly: ${JSON.stringify(sceneState)}`);
+        throw new Error(`PlayReady runtime background did not load correctly: ${JSON.stringify(sceneState)}`);
       }
-      process.stdout.write(`LudoReady runtime background loaded: ${sceneState.id}\n`);
+      process.stdout.write(`PlayReady runtime background loaded: ${sceneState.id}\n`);
     } else if (process.env.LUDOREADY_SMOKE_EXPERIENCE_REPORT === 'expand' && hasPlayablePreview) {
-      process.stdout.write('LudoReady workbench loaded a playable game preview\n');
+      process.stdout.write('PlayReady workbench loaded a playable game preview\n');
     } else if (process.env.LUDOREADY_SMOKE_CREW !== '1') {
       const soloState = await window.webContents.executeJavaScript(
         `(() => {
@@ -2744,9 +2754,9 @@ async function captureSmoke(window: BrowserWindow, target: string): Promise<void
         || soloState.actors !== 1
         || !soloState.indicator
         || !soloState.loaded) {
-        throw new Error(`LudoReady solo default did not load correctly: ${JSON.stringify(soloState)}`);
+        throw new Error(`PlayReady solo default did not load correctly: ${JSON.stringify(soloState)}`);
       }
-      process.stdout.write('LudoReady solo default loaded one character in the classic studio\n');
+      process.stdout.write('PlayReady solo default loaded one character in the classic studio\n');
     }
   }
   if (process.env.LUDOREADY_SMOKE_PROJECT_RAIL === '1') {
@@ -2793,7 +2803,7 @@ async function captureSmoke(window: BrowserWindow, target: string): Promise<void
       || !railState.closeVisible) {
       throw new Error(`Project rail did not open correctly: ${JSON.stringify(railState)}`);
     }
-    process.stdout.write(`LudoReady project rail opened ${JSON.stringify(railState)}\n`);
+    process.stdout.write(`PlayReady project rail opened ${JSON.stringify(railState)}\n`);
   }
   if (process.env.LUDOREADY_SMOKE_PROJECT_MENU === '1') {
     const opened = await window.webContents.executeJavaScript(
@@ -2830,7 +2840,7 @@ async function captureSmoke(window: BrowserWindow, target: string): Promise<void
       || !['重命名', '置顶', '删除'].every((label) => menuState.labels.includes(label))) {
       throw new Error(`Project action menu did not open correctly: ${JSON.stringify(menuState)}`);
     }
-    process.stdout.write(`LudoReady project action menu opened ${JSON.stringify(menuState)}\n`);
+    process.stdout.write(`PlayReady project action menu opened ${JSON.stringify(menuState)}\n`);
   }
   if (process.env.LUDOREADY_SMOKE_GEAR_ALIGNMENT === '1') {
     const alignment = await window.webContents.executeJavaScript(
@@ -2858,7 +2868,7 @@ async function captureSmoke(window: BrowserWindow, target: string): Promise<void
       || Math.abs(alignment.settingsCenter - alignment.runtimeCenter) > 1) {
       throw new Error(`Collapsed settings icon is not centered: ${JSON.stringify(alignment)}`);
     }
-    process.stdout.write(`LudoReady collapsed settings icon aligned ${JSON.stringify(alignment)}\n`);
+    process.stdout.write(`PlayReady collapsed settings icon aligned ${JSON.stringify(alignment)}\n`);
   }
   if (process.env.LUDOREADY_SMOKE_CREW === '1') {
     const crewState = await window.webContents.executeJavaScript(
@@ -2897,10 +2907,10 @@ async function captureSmoke(window: BrowserWindow, target: string): Promise<void
       || crewState.uniquePacks !== crewState.count
       || crewState.shadows !== crewState.count
       || crewState.primary !== 1) {
-      throw new Error(`LudoReady collaboration crew did not load correctly: ${JSON.stringify(crewState)}`);
+      throw new Error(`PlayReady collaboration crew did not load correctly: ${JSON.stringify(crewState)}`);
     }
     process.stdout.write(
-      `LudoReady collaboration crew loaded ${crewState.count} unique specialists: ${crewState.roles.join(', ')}\n`,
+      `PlayReady collaboration crew loaded ${crewState.count} unique specialists: ${crewState.roles.join(', ')}\n`,
     );
   }
   const expectedPack = process.env.LUDOREADY_SMOKE_PACK?.trim();
@@ -2947,7 +2957,7 @@ async function captureSmoke(window: BrowserWindow, target: string): Promise<void
       || initialFrame.shadowWidth < 12
       || initialFrame.shadowHeight < 3
       || !initialFrame.shadowProfile) {
-      throw new Error(`LudoReady production pack did not load: ${JSON.stringify(initialFrame)}`);
+      throw new Error(`PlayReady production pack did not load: ${JSON.stringify(initialFrame)}`);
     }
     let frameChanged = false;
     for (let attempt = 0; attempt < 25 && !frameChanged; attempt += 1) {
@@ -2959,10 +2969,10 @@ async function captureSmoke(window: BrowserWindow, target: string): Promise<void
       frameChanged = currentFrame !== initialFrame.frame;
     }
     if (!frameChanged) {
-      throw new Error(`LudoReady multi-frame animation did not advance: ${JSON.stringify(initialFrame)}`);
+      throw new Error(`PlayReady multi-frame animation did not advance: ${JSON.stringify(initialFrame)}`);
     }
     process.stdout.write(
-      `LudoReady production pack ${expectedPack} loaded ${initialFrame.manifest} with ${initialFrame.count} keyed frames and ${initialFrame.shadowProfile} ground shadow\n`,
+      `PlayReady production pack ${expectedPack} loaded ${initialFrame.manifest} with ${initialFrame.count} keyed frames and ${initialFrame.shadowProfile} ground shadow\n`,
     );
   }
   if (process.env.LUDOREADY_SMOKE_ASSISTANT_MOTION === '1') {
@@ -2981,7 +2991,7 @@ async function captureSmoke(window: BrowserWindow, target: string): Promise<void
       ));
     }
     if (!changed) throw new Error(`Production assistant did not change action or position: ${JSON.stringify(initial)}`);
-    process.stdout.write(`LudoReady production assistant moved from ${initial.action} at ${initial.station}\n`);
+    process.stdout.write(`PlayReady production assistant moved from ${initial.action} at ${initial.station}\n`);
   }
   if (process.env.LUDOREADY_SMOKE_RENAME_TITLE === '1') {
     const workbenchBrandCanExpand = await window.webContents.executeJavaScript(
@@ -3090,7 +3100,7 @@ async function captureSmoke(window: BrowserWindow, target: string): Promise<void
       throw new Error(`Experience report did not expand correctly: ${JSON.stringify({ collapsed, expanded })}`);
     }
     process.stdout.write(
-      `LudoReady experience report opened as ${expanded.width}x${expanded.height}px without resizing the ${expanded.previewHeight}px preview\n`,
+      `PlayReady experience report opened as ${expanded.width}x${expanded.height}px without resizing the ${expanded.previewHeight}px preview\n`,
     );
     await delay(250);
   }
@@ -3100,9 +3110,9 @@ async function captureSmoke(window: BrowserWindow, target: string): Promise<void
   await mkdir(dirname(output), { recursive: true });
   const { writeFile } = await import('node:fs/promises');
   await writeFile(output, image.toPNG());
-  process.stdout.write(`LudoReady UI smoke captured ${output}\n`);
+  process.stdout.write(`PlayReady UI smoke captured ${output}\n`);
   if (process.env.LUDOREADY_SMOKE_HOLD === '1') {
-    process.stdout.write('LudoReady UI smoke window left open for inspection\n');
+    process.stdout.write('PlayReady UI smoke window left open for inspection\n');
     return;
   }
   app.quit();
@@ -3161,7 +3171,7 @@ async function recoverInterruptedProjects(): Promise<void> {
       .map((project) => projectStore.update(project.id, {
         status: 'stopped',
         activeTurnId: null,
-        lastError: 'LudoReady 上次退出时，该任务没有确认完成。请检查文件后再继续。',
+        lastError: 'PlayReady 上次退出时，该任务没有确认完成。请检查文件后再继续。',
       })),
   );
 }
@@ -3238,15 +3248,15 @@ function validateSettingsPatch(value: Partial<AppSettings>): Partial<AppSettings
   for (const key of Object.keys(value)) if (!allowed.has(key)) throw new Error(`未知设置：${key}`);
   if (value.defaultLudoReadyStageMode !== undefined
     && !isLudoReadyStageMode(value.defaultLudoReadyStageMode)) {
-    throw new Error('无效的 LudoReady 舞台模式');
+    throw new Error('无效的 PlayReady 舞台模式');
   }
   if (value.defaultLudoReadySoloSceneId !== undefined
     && !isLudoReadyPackId(value.defaultLudoReadySoloSceneId)) {
-    throw new Error('无效的 LudoReady 单人场景');
+    throw new Error('无效的 PlayReady 单人场景');
   }
   if (value.defaultLudoReadySceneId !== undefined
     && !isLudoReadySceneId(value.defaultLudoReadySceneId)) {
-    throw new Error('无效的 LudoReady 场景');
+    throw new Error('无效的 PlayReady 场景');
   }
   return value;
 }

@@ -111,7 +111,7 @@ export function createBrowserDesktopApi(options: BrowserApiOptions = {}) {
         throw new DesktopConnectionError(error || (
           response.status === 401 || response.status === 403
             ? '请输入本机工作台的连接密钥'
-            : '本机工作台暂时离线，请保持电脑开机并运行 LudoReady'
+            : '本机工作台暂时离线，请保持电脑开机并运行 PlayReady'
         ), response.status);
       }
       if (data === null) throw new Error('本机工作台返回了无法读取的响应');
@@ -184,7 +184,7 @@ export function createBrowserDesktopApi(options: BrowserApiOptions = {}) {
       updateConnection({
         connected: response.connected !== false,
         requiresKey: false,
-        message: response.connected === false ? '本机工作台暂时离线，请保持电脑开机并运行 LudoReady' : '',
+        message: response.connected === false ? '本机工作台暂时离线，请保持电脑开机并运行 PlayReady' : '',
       });
       for (const event of response.events) {
         if (event.channel === 'ludoready:event:project') observeProject(event.payload);

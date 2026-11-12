@@ -210,7 +210,7 @@ async function binaryRequest(env: RuntimeEnv, kind: 'preview' | 'download', args
       if (value.error) throw new WebInputError(503, value.error);
       if (!value.result || !validParts(value.result) && typeof value.result.bodyBase64 !== 'string') throw new WebInputError(502, '游戏文件返回格式无效。');
       if (kind === 'download' && validParts(value.result)) return json({
-        filename: `ludoready-${String(args[0])}.zip`,
+        filename: `playready-${String(args[0])}.zip`,
         chunks: Array.from({ length: value.result.binaryParts! }, (_, index) => ({ url: `/desktop/download-chunk/${requestId}/${index}` })),
       });
       const contentType = value.result.contentType || 'application/octet-stream';
@@ -224,7 +224,7 @@ async function binaryRequest(env: RuntimeEnv, kind: 'preview' | 'download', args
         'Content-Type': contentType, 'Cache-Control': 'no-store', 'X-Content-Type-Options': 'nosniff', 'Referrer-Policy': 'no-referrer',
         'Access-Control-Allow-Origin': '*', 'Cross-Origin-Resource-Policy': 'cross-origin',
         ...(contentType.startsWith('text/html') ? { 'Content-Security-Policy': csp } : {}),
-        ...(kind === 'download' ? { 'Content-Disposition': `attachment; filename="ludoready-${String(args[0])}.zip"` } : {}),
+        ...(kind === 'download' ? { 'Content-Disposition': `attachment; filename="playready-${String(args[0])}.zip"` } : {}),
       };
       if (manifestOnly) {
         const projectId = String(args[0]);

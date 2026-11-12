@@ -44,7 +44,7 @@ export class ApprovalBroker extends EventEmitter {
         this.#runtime.rejectServerRequest(
           request.id,
           -32601,
-          `LudoReady does not support ${request.method}`,
+          `PlayReady does not support ${request.method}`,
         );
       }
       this.emit('diagnostic', `Unsupported Codex request was denied: ${request.method}`);

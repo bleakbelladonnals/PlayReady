@@ -1,8 +1,8 @@
-# LudoReady 功能拆解
+# PlayReady 功能拆解
 
 ## 产品目标
 
-LudoReady 是一个面向独立开发者和创意团队的游戏制作 Agent。用户用自然语言描述游戏，Codex 在受控项目目录内完成策划、脚手架、素材接入、动画需求判断、代码实现、构建验证和持续迭代；产品负责把 Codex App Server 的线程、回合、工具、审批与文件变化转化成可理解的制作工作台。
+PlayReady 是一个面向独立开发者和创意团队的游戏制作 Agent。用户用自然语言描述游戏，Codex 在受控项目目录内完成策划、脚手架、素材接入、动画需求判断、代码实现、构建验证和持续迭代；产品负责把 Codex App Server 的线程、回合、工具、审批与文件变化转化成可理解的制作工作台。
 
 新工程保留已有的产品能力和前端信息架构，不继承旧项目的迁移状态、私有运行时封装或历史数据门禁。
 
@@ -12,7 +12,7 @@ LudoReady 是一个面向独立开发者和创意团队的游戏制作 Agent。�
 
 - 创建游戏项目：名称、创意描述、存放目录、模型和游戏引擎；新项目由宿主统一使用 60 FPS 内部制作基准，不向用户提供帧率生成策略；AI 图片素材生产是固定要求，不提供跳过策略。
 - 项目轨：切换项目、查看状态、继续最近会话。
-- 初始化标准游戏工作区：`AGENTS.md`、LudoReady Skill、项目元数据和可运行网页游戏入口。
+- 初始化标准游戏工作区：`AGENTS.md`、PlayReady Skill、项目元数据和可运行网页游戏入口。
 - 在 Finder 中显示项目、刷新文件、读取文本文件。
 - 项目数据与 Codex thread id 独立持久化。
 
@@ -60,7 +60,7 @@ LudoReady 是一个面向独立开发者和创意团队的游戏制作 Agent。�
 - ChatGPT 登录/退出与账户状态。
 - 默认工作区、默认模型、推理强度、主题；不提供关闭生成图片门禁的设置。
 - 媒体 API：图像服务优先、Codex ImageGen 回退；音频请求按 `music | speech | vocal-sfx | sfx | ambience` 明确分类，MiniMax Music 负责音乐、MiniMax Speech 负责人声/人声音效，通用 SFX 与 ambience 返回程序化回退；3D 使用主要模型/同步 REST 网关；密钥由 macOS Keychain 支撑的 Electron safeStorage 加密，磁盘只保存密文。
-- Codex Skills：读取原生 Skills 目录并即时启停，不删除 Skill 文件；固定素材门禁依赖的宿主 ImageGen 标记为 `LUDOREADY REQUIRED`，不可停用。
+- Codex Skills：读取原生 Skills 目录并即时启停，不删除 Skill 文件；固定素材门禁依赖的宿主 ImageGen 标记为 `PLAYREADY REQUIRED`，不可停用。
 - MCP Servers：管理 stdio 命令与 HTTP Endpoint，保存后通过 App Server 重载；HTTP Token 只引用主进程环境变量名。
 - 提示词管理：Planner、Implementer、Reviewer、Repair 分层启停、编辑和恢复；未保存草稿受离开保护，内容作为不可信偏好放在固定安全/素材/FPS 契约之前，不能覆盖宿主门禁。
 - 旧历史导入只能是显式、可取消的工具，永远不阻断新项目或新线程。

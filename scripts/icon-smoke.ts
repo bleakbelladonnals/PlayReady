@@ -18,7 +18,7 @@ import type { ProjectRecord } from '../src/shared/contracts.js';
 const workspace = await mkdtemp(join(tmpdir(), 'ludoready-icon-smoke-'));
 const codexHome =
   process.env.LUDOREADY_SMOKE_CODEX_HOME?.trim()
-  || join(process.env.HOME ?? '', 'Library', 'Application Support', 'LudoReady', 'codex-home');
+  || join(process.env.HOME ?? '', 'Library', 'Application Support', 'PlayReady', 'codex-home');
 const runtime = new CodexAppServer({ codexHome });
 
 try {

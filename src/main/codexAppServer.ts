@@ -543,7 +543,7 @@ export class CodexAppServer extends EventEmitter {
       const initialized = await peer.request<InitializeResponse>('initialize', {
         clientInfo: {
           name: 'ludoready_ai',
-          title: 'LudoReady Game Agent',
+          title: 'PlayReady Game Agent',
           version: '0.1.0',
         },
         capabilities: {

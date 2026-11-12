@@ -19,7 +19,7 @@ async function fixture() {
   const rendererRoot = join(root, 'renderer');
   const uploadRoot = join(root, 'uploads');
   await mkdir(rendererRoot);
-  await writeFile(join(rendererRoot, 'index.html'), '<!doctype html><title>LudoReady</title>');
+  await writeFile(join(rendererRoot, 'index.html'), '<!doctype html><title>PlayReady</title>');
   const invoke = vi.fn(async (_channel: string, _args: unknown[]) => ({ ok: true }));
   const preview = vi.fn(async (_id: string, _path: string) => ({
     bodyBase64: Buffer.from('<!doctype html><canvas></canvas>').toString('base64'),
@@ -184,7 +184,7 @@ describe('desktop Web bridge', () => {
     await symlink(f.root, join(f.rendererRoot, 'outside-directory'));
     expect((await fetch(`${f.bridge.origin}/leaked.txt`)).status).toBe(404);
     expect((await fetch(`${f.bridge.origin}/outside-directory/outside.txt`)).status).toBe(404);
-    expect(await (await fetch(`${f.bridge.origin}/`)).text()).toContain('<title>LudoReady</title>');
+    expect(await (await fetch(`${f.bridge.origin}/`)).text()).toContain('<title>PlayReady</title>');
   });
 
   it('allows a valid game preview capability to read that game without granting RPC or download access', async () => {

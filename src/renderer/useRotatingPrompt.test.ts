@@ -75,6 +75,6 @@ describe('rotating game prompt', () => {
   });
 
   it('keeps combined emoji together as one visible character', () => {
-    expect(splitGraphemes('LudoReady 👨‍💻 🐿️')).toEqual(['L', 'u', 'd', 'o', 'R', 'e', 'a', 'd', 'y', ' ', '👨‍💻', ' ', '🐿️']);
+    expect(splitGraphemes('PlayReady 👨‍💻 🐿️')).toEqual(['P', 'l', 'a', 'y', 'R', 'e', 'a', 'd', 'y', ' ', '👨‍💻', ' ', '🐿️']);
   });
 });

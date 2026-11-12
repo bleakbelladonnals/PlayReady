@@ -32,7 +32,7 @@ describe('pixel page transition wave', () => {
   });
 });
 
-describe('LudoReady transition scene rotation', () => {
+describe('PlayReady transition scene rotation', () => {
   it('ships nine scenes and advances one scene per transition run', () => {
     expect(LUDOREADY_TRANSITION_SCENE_COUNT).toBe(9);
     expect(ludoreadyTransitionSceneIndex(1)).toBe(0);

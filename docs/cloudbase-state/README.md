@@ -1,6 +1,6 @@
-# LudoReady 状态函数部署
+# PlayReady 状态函数部署
 
-现有 CloudBase 免费环境使用 PostgreSQL。LudoReady 使用专用表、一个事务 SQL 函数和一个 Event 函数；游戏生成、浏览器试玩及游戏文件由 EdgeOne 执行。
+现有 CloudBase 免费环境使用 PostgreSQL。PlayReady 使用专用表、一个事务 SQL 函数和一个 Event 函数；游戏生成、浏览器试玩及游戏文件由 EdgeOne 执行。
 
 ## 本地构建
 
@@ -24,7 +24,7 @@ node scripts/build-cloudbase-state.mjs
 
 操作环境固定为 `zaowutai-d5gkmk1fh36dd0fda`，地域为 `ap-shanghai`。使用此环境已有 PostgreSQL，通过专用事务 SQL 函数 `public.ludoready_state(op text, input jsonb)` 处理项目、每日名额和任务领取；返回标量 JSON `{ status, body }`。建表和函数 SQL 由部署执行者单独应用，不通过构建脚本执行。
 
-数据库权限使用表级 GRANT、RLS 和 SQL 函数内的 `service_role` 校验。角色缺失或不匹配时必须拒绝。不能只依赖 `GRANT EXECUTE`，[官方 RPC 文档](https://docs.cloudbase.net/database/postgresql/rpc)说明了这一限制。实际已通过原生 CLI 的 `CreateApiKey` 创建 LudoReady 专用后端 PG API Key，并确认角色为 `service_role`。没有申请永久管理员 CAM 密钥；已创建的 PG API Key 是后端持久凭证。无需增加 MongoDB 集合。
+数据库权限使用表级 GRANT、RLS 和 SQL 函数内的 `service_role` 校验。角色缺失或不匹配时必须拒绝。不能只依赖 `GRANT EXECUTE`，[官方 RPC 文档](https://docs.cloudbase.net/database/postgresql/rpc)说明了这一限制。实际已通过原生 CLI 的 `CreateApiKey` 创建 PlayReady 专用后端 PG API Key，并确认角色为 `service_role`。没有申请永久管理员 CAM 密钥；已创建的 PG API Key 是后端持久凭证。无需增加 MongoDB 集合。
 
 函数运行环境需要两个私有变量：
 

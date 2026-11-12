@@ -73,7 +73,7 @@ describe('media generation service', () => {
         kind: 'model3d',
         source: 'procedural',
         mimeType: 'model/gltf-binary',
-        provider: 'LudoReady:Three.js Procedural GLB',
+        provider: 'PlayReady:Three.js Procedural GLB',
         metadata: {
           route: 'threejs-fallback',
           generator: 'threejs-procedural-v1',

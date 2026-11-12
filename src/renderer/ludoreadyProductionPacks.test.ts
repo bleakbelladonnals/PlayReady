@@ -4,7 +4,7 @@ import { LUDOREADY_PACK_IDS } from '../shared/contracts';
 import { ludoreadyManifestSources } from './ludoreadyAnimation';
 import { ludoreadyProductionPack } from './ludoreadyProductionPacks';
 
-describe('LudoReady production packs', () => {
+describe('PlayReady production packs', () => {
   it('ships a matching scene and complete animation manifest for every selectable pack', () => {
     for (const packId of LUDOREADY_PACK_IDS) {
       const pack = ludoreadyProductionPack(packId);

@@ -62,7 +62,7 @@ const SECTIONS = [
   { id: 'environment', label: '环境管理', detail: 'Node、Codex、Godot', icon: Cpu },
   { id: 'media', label: '媒体 API', detail: '图像、音频、3D', icon: Boxes },
   { id: 'defaults', label: '项目默认值', detail: '目录、模型、推理', icon: Settings2 },
-  { id: 'ludoready', label: 'LudoReady 工坊', detail: '伙伴形象与场景', icon: Palette },
+  { id: 'ludoready', label: 'PlayReady 工坊', detail: '伙伴形象与场景', icon: Palette },
   { id: 'skills', label: 'Skills', detail: 'Agent 专业能力', icon: FileCode2 },
   { id: 'mcp', label: 'MCP Servers', detail: '工具与数据连接', icon: Cable },
   { id: 'prompts', label: '提示词', detail: '分角色模板', icon: FileText },
@@ -289,9 +289,9 @@ export function SettingsModal({
           {section === 'ludoready' ? (
             <section>
               <SettingsHeading
-                eyebrow="LUDOREADY WORKSHOP"
+                eyebrow="PLAYREADY WORKSHOP"
                 title="选择默认搭档与工作场景"
-                description="默认先由一位 LudoReady 在一个单人工作室中陪你制作；多人编队与多人场景放在下方，按需启用。"
+                description="默认先由一位 PlayReady 在一个单人工作室中陪你制作；多人编队与多人场景放在下方，按需启用。"
               />
 
               <section
@@ -315,7 +315,7 @@ export function SettingsModal({
                     <div>
                       <small>SOLO PARTNER</small>
                       <strong id="ludoready-character-step-title">先选择一位默认角色</strong>
-                      <p>这位 LudoReady 会独自出现在制作预览里，并跟随 Agent 的阶段行动。</p>
+                      <p>这位 PlayReady 会独自出现在制作预览里，并跟随 Agent 的阶段行动。</p>
                     </div>
                   </header>
                   <LudoReadyPackPicker
@@ -457,7 +457,7 @@ function AccountSettings({
       <SettingsHeading
         eyebrow="CODEX APP SERVER"
         title="运行时与账户"
-        description="LudoReady 通过官方 App Server 使用 Codex；认证在系统浏览器中完成。"
+        description="PlayReady 通过官方 App Server 使用 Codex；认证在系统浏览器中完成。"
         action={
           <button className="secondary-button compact" type="button" disabled={busy} onClick={onRefresh}>
             <RefreshCw size={13} className={busy ? 'spin' : ''} /> 刷新

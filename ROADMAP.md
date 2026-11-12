@@ -1,6 +1,6 @@
-# LudoReady roadmap
+# PlayReady roadmap
 
-LudoReady is a macOS developer preview. This roadmap describes useful directions, not delivery promises. If you want to work on a larger item, open a proposal issue first so the implementation can be scoped with the maintainers.
+PlayReady is a macOS developer preview. This roadmap describes useful directions, not delivery promises. If you want to work on a larger item, open a proposal issue first so the implementation can be scoped with the maintainers.
 
 ## Reliability and release readiness
 

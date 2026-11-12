@@ -28,7 +28,7 @@ try {
   if (generated.provider.route !== 'threejs-fallback') throw new Error('3D fallback route was not reported');
 
   await writeFile(join(root, 'project.godot'), `[application]
-config/name="LudoReady Model3D Smoke"
+config/name="PlayReady Model3D Smoke"
 
 [rendering]
 renderer/rendering_method="gl_compatibility"
@@ -58,7 +58,7 @@ renderer/rendering_method.mobile="gl_compatibility"
   }
 
   process.stdout.write([
-    'LudoReady 3D route smoke passed',
+    'PlayReady 3D route smoke passed',
     `engine=${status.tool.version}`,
     `route=${generated.provider.route}`,
     `asset=${generated.asset.relativePath}`,

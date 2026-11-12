@@ -62,7 +62,7 @@ describe('ApprovalBroker', () => {
     expect(runtime.rejectServerRequest).toHaveBeenCalledWith(
       'unknown-1',
       -32601,
-      'LudoReady does not support attestation/generate',
+      'PlayReady does not support attestation/generate',
     );
   });
 });

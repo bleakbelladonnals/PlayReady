@@ -24,7 +24,7 @@ describe('public Web project flow', () => {
     const root = await mkdtemp(join(tmpdir(), 'ludoready-web-'));
     const clientDir = join(root, 'client');
     await mkdir(clientDir);
-    await writeFile(join(clientDir, 'index.html'), '<h1>LudoReady</h1>');
+    await writeFile(join(clientDir, 'index.html'), '<h1>PlayReady</h1>');
     let generators = 0;
     let resumeRevision!: () => void;
     const revisionGate = new Promise<void>((resolve) => { resumeRevision = resolve; });

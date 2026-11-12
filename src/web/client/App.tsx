@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useRef, useState, type FormEvent, type MouseEvent } from 'react';
 import { ArrowDownToLine, ArrowRight, Check, CircleAlert, ClipboardList, Clock3, Code2, Copy, Flag, Gamepad2, Home, Image, LoaderCircle, Maximize2, MonitorPlay, Plus, RotateCw, Sparkles } from 'lucide-react';
 import '@fontsource/press-start-2p/latin-400.css';
-import appIcon from './assets/ludoready-app-icon.webp';
+import appIcon from './assets/playready-app-icon.webp';
 import workshopScene from './assets/workshop-scene.webp';
 import idleA from '../../renderer/assets/ludoready-packs/classic/frames/sprite-idle-a.png';
 import idleB from '../../renderer/assets/ludoready-packs/classic/frames/sprite-idle-b.png';
@@ -134,7 +134,7 @@ function Workshop({ project, landing = false }: { project: Project | null; landi
   return <div className={`workshop ${failed ? 'is-paused' : ''}`}>
     <div className="workshop-scene">
       <img className="scene-art" src={workshopScene} alt="像素游戏工坊，设有创意桌、画架、电脑与关卡地图" />
-      <span className="scene-sign"><span className="pixel-dot" /> LUDOREADY WORKSHOP</span>
+      <span className="scene-sign"><span className="pixel-dot" /> PLAYREADY WORKSHOP</span>
       <div className={`workshop-character ${failed ? 'is-still' : ''}`} aria-hidden="true">
         <span className="character-bubble">{landing ? '有新想法吗？' : failed ? '暂时停工' : queued ? '等候开工' : stage.action}</span>
         <div className="character-frames" key={stage.action}><img src={stage.pose[0]} alt="" /><img src={stage.pose[1]} alt="" /></div>
@@ -476,14 +476,14 @@ function App() {
   return (
     <div className="app-shell">
       <nav className="project-rail" aria-label="工坊导航">
-        <a className="rail-brand" href="/" aria-label="LudoReady 首页"><img src={appIcon} alt="" /></a>
+        <a className="rail-brand" href="/" aria-label="PlayReady 首页"><img src={appIcon} alt="" /></a>
         <a className={`rail-action ${!projectId ? 'is-selected' : ''}`} href="/" aria-label="开始新的创作" title="开始新的创作"><Plus size={23} /></a>
         {projectId ? <span className="rail-project is-selected" title="当前游戏项目"><Gamepad2 size={22} /><span className={`rail-status ${project?.status ?? ''}`} /></span> : null}
       </nav>
 
       <div className="app-body">
         <header className="app-header">
-          <a className="brand" href="/" aria-label="LudoReady 游戏创作工坊"><span className="brand-name">LudoReady</span><span className="brand-caption">游戏创作工坊</span></a>
+          <a className="brand" href="/" aria-label="PlayReady 游戏创作工坊"><span className="brand-name">PlayReady</span><span className="brand-caption">游戏创作工坊</span></a>
           <div className="header-context"><span className="type-badge">2D WEB</span><span className={`status-badge ${project?.status ?? ''}`}><span />{statusLabel}</span></div>
           <a className="home-link" href="/" title="返回首页"><Home size={17} /><span>{projectId ? '新建游戏' : '创作首页'}</span></a>
         </header>
@@ -551,7 +551,7 @@ function App() {
             <div className="studio-footnote"><span><MonitorPlay size={12} /> 电脑浏览器创作</span><span>{projectId ? '规划 → 制作 → 审查 → 试玩 → 交付' : '描述想法，等待制作，开玩。'}</span></div>
           </section>
         </main>
-        <footer className="app-footer"><span>LudoReady</span><span>把想法做成好玩的东西</span></footer>
+        <footer className="app-footer"><span>PlayReady</span><span>把想法做成好玩的东西</span></footer>
       </div>
     </div>
   );

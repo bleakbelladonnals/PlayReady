@@ -28,7 +28,7 @@ try {
   await createWorkspaceTemplate(workspace, {
     id: 'image-smoke',
     name: 'Image Smoke',
-    idea: 'Verify Codex ImageGen and LudoReady workspace ingestion end to end.',
+    idea: 'Verify Codex ImageGen and PlayReady workspace ingestion end to end.',
     createdAt: new Date().toISOString(),
     model: null,
   });
@@ -77,11 +77,11 @@ try {
     provider: 'codex-imagegen',
   });
   if (asset.kind !== 'image' || asset.source !== 'generated') {
-    throw new Error('LudoReady did not ingest the generated image as a project asset.');
+    throw new Error('PlayReady did not ingest the generated image as a project asset.');
   }
 
   process.stdout.write(
-    `LudoReady ImageGen smoke passed: ${model.displayName}; ${asset.relativePath}; ${asset.size} bytes\n`,
+    `PlayReady ImageGen smoke passed: ${model.displayName}; ${asset.relativePath}; ${asset.size} bytes\n`,
   );
 } finally {
   await runtime.stop().catch(() => undefined);

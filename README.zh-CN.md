@@ -1,8 +1,8 @@
 <p align="center">
-  <img src="docs/images/ludoready-app-icon.png" width="112" alt="LudoReady 应用图标">
+  <img src="docs/images/playready-app-icon.png" width="112" alt="PlayReady 应用图标">
 </p>
 
-<h1 align="center">LudoReady</h1>
+<h1 align="center">PlayReady</h1>
 
 <p align="center">
   <strong>把一句游戏创意，变成经过审查、可以游玩的 Web 或 Godot 游戏。</strong><br>
@@ -21,13 +21,13 @@
   <a href="README.md"><strong>English</strong></a>
 </p>
 
-![LudoReady 制作工作台，包含 Agent 管线、可玩预览、素材与工程文件](docs/images/ludoready-workbench.png)
+![PlayReady 制作工作台，包含 Agent 管线、可玩预览、素材与工程文件](docs/images/playready-workbench.png)
 
-LudoReady 不让单个 Agent 在一次回合里即兴完成所有工作，而是把 Codex 放进一条有边界的游戏制作循环：只读 Planner 拆解任务，Implementer 在独立工程目录中实现，独立 Reviewer 检查真实结果，宿主再正式构建并自动试玩。审查、构建或体验评测未通过时，会交回同一个 Implementer，最多连续修复三轮。
+PlayReady 不让单个 Agent 在一次回合里即兴完成所有工作，而是把 Codex 放进一条有边界的游戏制作循环：只读 Planner 拆解任务，Implementer 在独立工程目录中实现，独立 Reviewer 检查真实结果，宿主再正式构建并自动试玩。审查、构建或体验评测未通过时，会交回同一个 Implementer，最多连续修复三轮。
 
 > **当前状态：** macOS 开发者预览版。项目暂未发布已签名、公证的安装包，请从源码运行。生成结果是你自己工作区里的独立 Web 或 Godot 4 游戏工程。
 
-## 为什么选择 LudoReady
+## 为什么选择 PlayReady
 
 | | 你会得到什么 |
 | --- | --- |
@@ -35,7 +35,7 @@ LudoReady 不让单个 Agent 在一次回合里即兴完成所有工作，而是
 | **经过审查的制作循环** | Planner → Implementer → Reviewer → 正式构建 → 自动试玩；失败后最多进行三轮有界修复。 |
 | **自动体验评测** | 隔离的隐藏浏览器会操作主要玩法、记录截图，检查可见画面、动画连续性和运行错误。 |
 | **真实多媒体管线** | 图片、音乐、语音、音效和 3D 可走配置的 Provider、Codex ImageGen、导入素材或程序化回退；失败素材仍以可重试占位留在素材页。 |
-| **工程归用户所有** | 每个游戏都是普通本地项目，可以检查文件、继续用 Codex 修改、提交 Git，或完全脱离 LudoReady 使用。 |
+| **工程归用户所有** | 每个游戏都是普通本地项目，可以检查文件、继续用 Codex 修改、提交 Git，或完全脱离 PlayReady 使用。 |
 | **为扩展而设计** | 可增加媒体 Provider、Codex Skills、MCP Server、角色提示词、工程模板、Godot 导出目标或全新的工作台 UI。 |
 
 ## 快速开始
@@ -48,14 +48,14 @@ LudoReady 不让单个 Agent 在一次回合里即兴完成所有工作，而是
 - 可用的图片生成路线：已配置图片 Provider 或 Codex ImageGen
 - 只有 Agent 判断需要 Godot 时，才要求 Godot 4 与版本精确匹配的 Web Export Templates
 
-在 LudoReady 项目目录运行：
+在 PlayReady 项目目录运行：
 
 ```bash
 npm ci
 npm run dev
 ```
 
-首次启动后，打开**设置 → Codex 账户**完成登录。LudoReady 使用应用私有的 `userData/codex-home`，不会覆盖全局 `~/.codex` 配置。
+首次启动后，打开**设置 → Codex 账户**完成登录。PlayReady 使用应用私有的 `userData/codex-home`，不会覆盖全局 `~/.codex` 配置。
 
 如果应用无法自动找到 Codex，可显式指定二进制：
 
@@ -116,11 +116,11 @@ flowchart LR
 
 工作台用 `Brief → Scaffold → GDD → Assets → World → Code → Verify → Complete` 展示制作进度；真正的完成条件由 Reviewer 与宿主证明门禁共同决定。
 
-![LudoReady 鸭嘴兽吉祥物编排代码、动画、3D、音频与可玩世界](docs/images/ludoready-game-agent-poster.png)
+![PlayReady 鸭嘴兽吉祥物编排代码、动画、3D、音频与可玩世界](docs/images/playready-game-agent-poster.png)
 
 ## Fork 并定制
 
-LudoReady 把关键能力放在可替换的边界上，一个有价值的 Fork 可以从很小的改动开始：
+PlayReady 把关键能力放在可替换的边界上，一个有价值的 Fork 可以从很小的改动开始：
 
 | 目标 | 从这里开始 |
 | --- | --- |
@@ -142,7 +142,7 @@ LudoReady 把关键能力放在可替换的边界上，一个有价值的 Fork �
 - 本地可玩预览、工程文件树与统一素材库
 - Agent 自动选择 Web 或 Godot 4，并检查 Godot 环境与 Export Templates
 - 使用宿主管理的内部时序与动画契约，不再让用户选择帧率生成策略
-- LudoReady 多角色分工、动作状态、可选工坊场景和动态钓鱼背景
+- PlayReady 多角色分工、动作状态、可选工坊场景和动态钓鱼背景
 - 持久化项目与可恢复的 Codex Implementer 线程
 
 ### 媒体与扩展

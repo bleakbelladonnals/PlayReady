@@ -91,7 +91,7 @@ export async function runtimeProbe(context: RuntimeProbeContext, config: Runtime
         const page = await browserContext.newPage();
         checks.push({ id: stage, status: 'pass', message: 'Managed Chromium created an isolated context and page.' });
         stage = 'browser-navigation';
-        await page.goto('data:text/html,<title>LudoReady</title><h1>Browser connectivity</h1>', { waitUntil: 'load', timeout: 15000 });
+        await page.goto('data:text/html,<title>PlayReady</title><h1>Browser connectivity</h1>', { waitUntil: 'load', timeout: 15000 });
         checks.push({ id: stage, status: 'pass', message: 'Managed Chromium loaded the probe data page.' });
         stage = 'browser-screenshot';
         const screenshot = await page.screenshot({ type: 'png', timeout: 15000 });

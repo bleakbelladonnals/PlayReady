@@ -76,7 +76,7 @@ export const MEDIA_DYNAMIC_TOOLS: DynamicToolSpec[] = [
   {
     type: 'function',
     name: 'ludoready_asset_list',
-    description: 'List validated game assets in this LudoReady project. Returns workspace-relative paths only.',
+    description: 'List validated game assets in this PlayReady project. Returns workspace-relative paths only.',
     inputSchema: {
       type: 'object',
       properties: {
@@ -89,7 +89,7 @@ export const MEDIA_DYNAMIC_TOOLS: DynamicToolSpec[] = [
   {
     type: 'function',
     name: 'ludoready_asset_plan',
-    description: 'Create or update an expected game asset before generation, or list/get current expected-asset states. Reuse the returned planId in generation and registration calls so failures remain visible and retryable in the LudoReady workbench.',
+    description: 'Create or update an expected game asset before generation, or list/get current expected-asset states. Reuse the returned planId in generation and registration calls so failures remain visible and retryable in the PlayReady workbench.',
     inputSchema: {
       type: 'object',
       properties: {
@@ -203,7 +203,7 @@ export const MEDIA_DYNAMIC_TOOLS: DynamicToolSpec[] = [
   {
     type: 'function',
     name: 'ludoready_model3d_generate',
-    description: 'Generate and register a self-contained GLB. LudoReady automatically uses the configured 3D model API first; when no 3D API is configured, the host uses Three.js to author and export a procedural GLB. The final game must load the returned GLB (including in Godot); Three.js is not the game runtime. Set animation=true for a fallback rig with real idle, walk, and run clips.',
+    description: 'Generate and register a self-contained GLB. PlayReady automatically uses the configured 3D model API first; when no 3D API is configured, the host uses Three.js to author and export a procedural GLB. The final game must load the returned GLB (including in Godot); Three.js is not the game runtime. Set animation=true for a fallback rig with real idle, walk, and run clips.',
     inputSchema: {
       type: 'object',
       properties: {
@@ -239,7 +239,7 @@ export class MediaToolBroker {
     try {
       const params = readCallParams(request.params);
       project = await this.#options.resolveProject(params.threadId);
-      if (!project) throw new ToolInputError('This tool call is not attached to an active LudoReady project');
+      if (!project) throw new ToolInputError('This tool call is not attached to an active PlayReady project');
 
       let payload: unknown;
       switch (params.tool) {
@@ -265,7 +265,7 @@ export class MediaToolBroker {
           payload = await this.#generate(project, 'model3d', params.arguments);
           break;
         default:
-          throw new ToolInputError('Unknown LudoReady media tool');
+          throw new ToolInputError('Unknown PlayReady media tool');
       }
       this.#respond(request.id, payload, true);
     } catch (error) {
@@ -950,7 +950,7 @@ function publicGenerationResult(
       prompt: result.prompt,
       ...(plan ? { planId: plan.id } : {}),
       ...(result.fallback === 'codex-imagegen'
-        ? { instruction: `Invoke the Codex $imagegen skill now, then register the generated image with LudoReady${plan ? ` using planId=${plan.id}` : ''}.` }
+        ? { instruction: `Invoke the Codex $imagegen skill now, then register the generated image with PlayReady${plan ? ` using planId=${plan.id}` : ''}.` }
         : result.fallback === 'procedural-audio'
           ? { instruction: `Use ludoready_audio_synthesize${plan ? ` with planId=${plan.id}` : ''} for a short deterministic effect, deterministic Web Audio for a custom/ambient fallback, or import a licensed WAV/MP3/OGG. Do not claim MiniMax generated generic SFX or ambience.` }
           : { instruction: 'Call ludoready_model3d_generate again. It automatically routes to a configured 3D API or the built-in Three.js GLB exporter.' }),

@@ -27,7 +27,7 @@ const frameAssets = import.meta.glob(
 function frameSource(packId: LudoReadyPackId, filename: string): string {
   const key = `./assets/ludoready-packs/${packId}/frames/${filename}`;
   const source = frameAssets[key];
-  if (!source) throw new Error(`Missing LudoReady animation frame: ${key}`);
+  if (!source) throw new Error(`Missing PlayReady animation frame: ${key}`);
   return source;
 }
 

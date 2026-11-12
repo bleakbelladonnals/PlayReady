@@ -46,7 +46,7 @@ try {
   }
 
   process.stdout.write(
-    `LudoReady Codex smoke passed: ${status.version ?? 'unknown version'}, ${model.displayName}, ${threadId}\n`,
+    `PlayReady Codex smoke passed: ${status.version ?? 'unknown version'}, ${model.displayName}, ${threadId}\n`,
   );
 } finally {
   await runtime.stop().catch(() => undefined);

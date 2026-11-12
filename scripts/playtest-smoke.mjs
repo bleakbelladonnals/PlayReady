@@ -18,7 +18,7 @@ const GAME_HTML = `<!doctype html>
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>LudoReady playtest smoke</title>
+  <title>PlayReady playtest smoke</title>
   <style>
     html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#071018}
     body{display:grid;place-items:center}canvas{width:min(92vw,900px);height:auto;border:2px solid #5de4a3}
@@ -76,7 +76,7 @@ const GAME_HTML = `<!doctype html>
         context.beginPath(); context.arc(x, 280 + bob, 36 + (1 - pulse) * 80, 0, Math.PI * 2); context.stroke();
       }
       context.fillStyle = '#f6f2e8'; context.font = '700 24px sans-serif';
-      context.fillText('LUDOREADY PLAYTEST', 28, 44);
+      context.fillText('PLAYREADY PLAYTEST', 28, 44);
       context.font = '18px sans-serif';
       context.fillText('Enter start · D move · Space action · Esc pause · R restart', 28, 78);
       if (mode !== 'playing') {
@@ -177,7 +177,7 @@ try {
   if (smokeResultPath) {
     await writeFile(smokeResultPath, `${JSON.stringify({ ok: true, root, report }, null, 2)}\n`);
   }
-  process.stdout.write(`LudoReady experience playtest passed: ${report.score}/100 · ${report.durationMs}ms\n`);
+  process.stdout.write(`PlayReady experience playtest passed: ${report.score}/100 · ${report.durationMs}ms\n`);
 } catch (error) {
   const message = error instanceof Error ? error.stack ?? error.message : String(error);
   if (smokeResultPath) {

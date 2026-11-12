@@ -138,7 +138,7 @@ describe('desktop owner relay', () => {
     const owner = { cookie: cookie() };
     const download = await request(`/desktop/download/${projectId}`, { headers: owner });
     const manifest = await download.json();
-    expect(manifest).toMatchObject({ filename: `ludoready-${projectId}.zip`, chunks: [{ url: expect.stringMatching(/\/desktop\/download-chunk\/[a-f0-9-]{36}\/0/u) }, { url: expect.stringMatching(/\/1$/u) }] });
+    expect(manifest).toMatchObject({ filename: `playready-${projectId}.zip`, chunks: [{ url: expect.stringMatching(/\/desktop\/download-chunk\/[a-f0-9-]{36}\/0/u) }, { url: expect.stringMatching(/\/1$/u) }] });
     expect((await request(manifest.chunks[0].url)).status).toBe(401);
     blobMocks.get.mockResolvedValue(Uint8Array.from(bytes).buffer);
     const chunk = await request(manifest.chunks[0].url, { headers: owner });

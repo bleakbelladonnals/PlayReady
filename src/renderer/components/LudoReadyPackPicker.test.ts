@@ -10,7 +10,7 @@ import {
 } from './LudoReadyPackPicker';
 
 describe('LudoReadyPackPicker', () => {
-  it('offers exactly every supported LudoReady production pack', () => {
+  it('offers exactly every supported PlayReady production pack', () => {
     expect(LUDOREADY_PACK_OPTIONS.map((option) => option.id)).toEqual([...LUDOREADY_PACK_IDS]);
   });
 
@@ -35,7 +35,7 @@ describe('LudoReadyPackPicker', () => {
       onChange: vi.fn(),
     }));
 
-    expect(markup).toContain('aria-label="选择默认 LudoReady 角色"');
+    expect(markup).toContain('aria-label="选择默认 PlayReady 角色"');
     expect(markup.match(/data-pack-kind="character"/gu)).toHaveLength(LUDOREADY_PACK_IDS.length);
     expect(markup.match(/aria-checked="true"/gu)).toHaveLength(1);
     expect(markup).toContain('小马宝莉·暮光闪闪');

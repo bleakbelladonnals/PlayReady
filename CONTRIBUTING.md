@@ -1,6 +1,6 @@
-# Contributing to LudoReady
+# Contributing to PlayReady
 
-Thanks for helping make LudoReady safer, more portable and easier to extend. Focused pull requests are the easiest to review and merge.
+Thanks for helping make PlayReady safer, more portable and easier to extend. Focused pull requests are the easiest to review and merge.
 
 ## Good places to contribute
 

@@ -24,12 +24,12 @@
 9. `dynamicTools` 只在 `thread/start` 注册，并随线程持久化；`thread/resume` 不能给旧线程补装工具。
 10. 原生 `image_gen.imagegen` 会发出含 PNG base64 与 `savedPath` 的 `imageGeneration` item；宿主不能把 item 原样写日志。
 
-## LudoReady 的产品取舍
+## PlayReady 的产品取舍
 
 - 直接把官方 App Server 作为 Harness 内核，不安装旧 `codex-harness` 插件。
 - 在 Electron main 内实现 Planner → 单 Implementer → Reviewer → 最多一次 Repair → 最终复审的宿主级游戏编排。
 - Planner/Reviewer 为 ephemeral + read-only；Implementer 为 durable + workspace-write，避免并行写入冲突。
-- 每项目保存 Codex thread id，Codex rollout 是会话权威；LudoReady 只保存适合 UI 的事件摘要。
+- 每项目保存 Codex thread id，Codex rollout 是会话权威；PlayReady 只保存适合 UI 的事件摘要。
 - 新项目永远可直接启动，不设置旧历史迁移门禁。
 - Renderer 不开放任意 dynamic tool。Main 仅分发白名单 `ludoready_asset_list`、`ludoready_asset_register`、`ludoready_audio_synthesize`、`ludoready_image_generate`、`ludoready_audio_generate`、`ludoready_model3d_generate`，未知请求 fail closed；工具响应只含有界文本和项目相对路径。
 - Harness 在每轮 Planner、Implementer、Reviewer、Repair 和复审提示中注入 animation needs contract：Planner 检查现有资产后选择 `generate`、`reuse` 或 `not-needed`；2D/2.5D 只在真实缺口/不兼容变化时通过图像生成路由生产关键帧，已有合格帧则验证复用，实际 rigged 3D 使用真实 GLB animation clip，不需要姿态变化时记录理由并验证程序运动反馈；Reviewer 对误判或不满足分支返回 repair。

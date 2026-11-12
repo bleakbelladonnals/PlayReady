@@ -97,7 +97,7 @@ export async function createWebServer(options: WebServerOptions) {
           const bytes = await projectZip(join(options.dataDir, 'projects', job.id, 'public'));
           res.writeHead(200, {
             'Content-Type': 'application/zip',
-            'Content-Disposition': `attachment; filename="ludoready-${job.id}.zip"`,
+            'Content-Disposition': `attachment; filename="playready-${job.id}.zip"`,
             'Content-Length': bytes.length,
             'Cache-Control': 'no-store',
           });
@@ -229,7 +229,7 @@ export async function startWebServer(): Promise<void> {
     dataDir, clientDir, publicOrigin, baseUrl,
     apiKey: process.env.DASHSCOPE_API_KEY || '',
   });
-  server.listen(port, host, () => process.stdout.write(`LudoReady Web listening on ${host}:${port}\n`));
+  server.listen(port, host, () => process.stdout.write(`PlayReady Web listening on ${host}:${port}\n`));
 }
 
 if (process.argv[1] && resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {

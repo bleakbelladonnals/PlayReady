@@ -97,7 +97,7 @@ export function ProductionDiorama({
   const activeActor = actorSnapshots[activeMember.role] ?? initialCrewActor(activeMember);
   const visibleEgg = activeActor.easterEgg;
   const statusLabel = status === 'running'
-    ? 'LUDOREADY WORKING'
+    ? 'PLAYREADY WORKING'
     : status === 'completed'
       ? 'READY TO PLAY'
       : status === 'waiting'
@@ -126,7 +126,7 @@ export function ProductionDiorama({
       data-crew-size={crew.length}
       data-crew-packs={runtimeConfiguredCrew?.map((member) => `${member.role}:${member.packId}`).join(',') ?? packId}
       data-scene-mode={bakedRuntimeScene ? 'fishing' : collaborativeRuntime ? 'collaboration' : 'solo'}
-      aria-label={collaborativeRuntime ? 'LudoReady 多人像素制作场景' : 'LudoReady 单人像素制作场景'}
+      aria-label={collaborativeRuntime ? 'PlayReady 多人像素制作场景' : 'PlayReady 单人像素制作场景'}
     >
       <div className="workshop-map" aria-hidden="true">
         <img src={sceneImage} alt="" draggable={false} />

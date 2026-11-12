@@ -10,9 +10,9 @@ export const ROTATING_GAME_PROMPTS = [
 ] as const;
 
 export const EASTER_EGG_PROMPTS = [
-  '✦ 让 LudoReady 偷走最终 Boss 的键盘，并把所有报错变成金币……',
-  '✦ 制作一个 LudoReady 在编译器迷宫里收集橡果、躲避红色报错的隐藏游戏……',
-  '✦ 做一个按下神秘按钮后会下起橡果雨，而且 LudoReady 会跳舞的小游戏……',
+  '✦ 让 PlayReady 偷走最终 Boss 的键盘，并把所有报错变成金币……',
+  '✦ 制作一个 PlayReady 在编译器迷宫里收集橡果、躲避红色报错的隐藏游戏……',
+  '✦ 做一个按下神秘按钮后会下起橡果雨，而且 PlayReady 会跳舞的小游戏……',
 ] as const;
 
 export const EASTER_EGG_CHANCE = 0.02;

@@ -84,7 +84,7 @@ export function LudoReadyCrewPicker({
   value,
   disabled = false,
   busy = false,
-  label = 'LudoReady 制作编队',
+  label = 'PlayReady 制作编队',
   onChange,
 }: LudoReadyCrewPickerProps) {
   const [activePackId, setActivePackId] = useState<LudoReadyPackId>(

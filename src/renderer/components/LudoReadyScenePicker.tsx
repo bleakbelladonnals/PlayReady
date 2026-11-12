@@ -151,7 +151,7 @@ function LudoReadyScenePickerShell<Id extends string>({
     <section
       className={`ludoready-scene-picker variant-${variant}`}
       data-scene-kind={variant}
-      aria-label={solo ? 'LudoReady 单人工作室' : 'LudoReady 多人运行背景'}
+      aria-label={solo ? 'PlayReady 单人工作室' : 'PlayReady 多人运行背景'}
       aria-busy={busy}
     >
       <header className="ludoready-scene-heading">

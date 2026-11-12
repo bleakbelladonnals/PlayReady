@@ -201,7 +201,7 @@ export class MediaGenerationService {
       }, {
         name,
         prompt,
-        provider: `LudoReady:${displayName}`,
+        provider: `PlayReady:${displayName}`,
         model,
         presetId,
         source: 'procedural',

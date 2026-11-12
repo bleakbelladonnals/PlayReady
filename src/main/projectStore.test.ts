@@ -96,7 +96,7 @@ describe('ProjectStore selected workspace directory', () => {
     await expect(readFile(join(relocated.root, 'package.json'), 'utf8')).resolves.toContain('"name"');
   });
 
-  it('refuses to reconnect a project to a different LudoReady game folder', async () => {
+  it('refuses to reconnect a project to a different PlayReady game folder', async () => {
     const root = await mkdtemp(join(tmpdir(), 'ludoready-relocate-workspace-'));
     roots.push(root);
     const firstDirectory = join(root, '第一个游戏');

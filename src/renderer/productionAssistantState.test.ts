@@ -270,7 +270,7 @@ describe('production assistant state', () => {
     const sleeping = actions.find((item) => item.pose === 'sleep')!;
     const moonwalk = {
       id: 'moonwalk',
-      label: '彩蛋：LudoReady 突然开始月球漫步',
+      label: '彩蛋：PlayReady 突然开始月球漫步',
     } as const;
 
     expect(shouldProductionAssistantRoam('running', working, moonwalk, () => 0.99)).toBe(true);

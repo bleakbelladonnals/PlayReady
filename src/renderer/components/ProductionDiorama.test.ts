@@ -8,7 +8,7 @@ import {
   ProductionDiorama,
 } from './ProductionDiorama';
 
-describe('LudoReady ground shadow profiles', () => {
+describe('PlayReady ground shadow profiles', () => {
   it('uses a slightly wider shadow while the actor is walking', () => {
     expect(ludoreadyGroundShadowProfile('walk', 'walking')).toBe('walking');
     expect(ludoreadyGroundShadowProfile('carry', 'walking')).toBe('walking');
@@ -114,7 +114,7 @@ describe('LudoReady ground shadow profiles', () => {
     expect(markup).toContain('data-runtime-scene="fishing"');
     expect(markup).toContain('data-scene-mode="fishing"');
     expect(markup).toContain('four-ip-fishing.gif');
-    expect(markup).toContain('LUDOREADY WORKING');
+    expect(markup).toContain('PLAYREADY WORKING');
     expect(markup).not.toContain('class="workshop-occluder"');
     expect(markup).not.toContain('data-ludoready-member-pack=');
     expect(markup).not.toContain('data-crew-role=');

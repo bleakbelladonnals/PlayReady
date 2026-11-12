@@ -55,7 +55,7 @@ const alternatingFrames = (
 });
 
 /**
- * Compatibility manifest for the original LudoReady sprite set.
+ * Compatibility manifest for the original PlayReady sprite set.
  *
  * New character packs can replace this object with any number of authored
  * frames per pose. Keeping animation data outside the component means a pack

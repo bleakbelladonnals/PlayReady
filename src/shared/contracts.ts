@@ -573,9 +573,9 @@ export interface LudoReadyApi {
   readProjectFile(projectId: string, relativePath: string): Promise<FileReadResult>;
   /** Returns the project icon as a PNG data URL, or null when no icon exists yet. */
   getProjectIcon(projectId: string): Promise<ProjectIconData | null>;
-  /** Pass null to make the project follow the app-wide LudoReady production pack again. */
+  /** Pass null to make the project follow the app-wide PlayReady production pack again. */
   saveProjectLudoReadyPack(projectId: string, packId: LudoReadyPackId | null): Promise<ProjectRecord>;
-  /** Pass null to make the project follow the app-wide LudoReady crew again. */
+  /** Pass null to make the project follow the app-wide PlayReady crew again. */
   saveProjectLudoReadyCrew(
     projectId: string,
     crew: readonly LudoReadyCrewMember[] | null,

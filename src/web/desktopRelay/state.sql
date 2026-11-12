@@ -64,7 +64,7 @@ BEGIN
     v_connected := true;
   END IF;
   IF op = 'desktop-submit' THEN
-    IF NOT v_connected THEN RETURN jsonb_build_object('status', 409, 'body', jsonb_build_object('error', '本机工作台离线，请打开电脑上的 LudoReady。')); END IF;
+    IF NOT v_connected THEN RETURN jsonb_build_object('status', 409, 'body', jsonb_build_object('error', '本机工作台离线，请打开电脑上的 PlayReady。')); END IF;
     IF jsonb_typeof(input -> 'id') IS DISTINCT FROM 'string' OR (input ->> 'id') !~ '^[a-f0-9-]{36}$'
         OR input ->> 'kind' NOT IN ('rpc', 'preview', 'upload', 'download') OR jsonb_typeof(input -> 'args') IS DISTINCT FROM 'array'
         OR jsonb_typeof(input -> 'channel') IS DISTINCT FROM 'string' OR pg_column_size(input) > 4194304 THEN

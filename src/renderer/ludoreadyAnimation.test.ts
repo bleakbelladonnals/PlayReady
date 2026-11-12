@@ -21,7 +21,7 @@ const animation = (overrides: Partial<LudoReadyAnimation> = {}): LudoReadyAnimat
   ...overrides,
 });
 
-describe('LudoReady sprite animation timeline', () => {
+describe('PlayReady sprite animation timeline', () => {
   it('honors the duration of every keyframe instead of assuming a uniform interval', () => {
     const clip = animation();
     expect(ludoreadyFrameAtElapsed(clip, 0)).toBe(0);

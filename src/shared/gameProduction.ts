@@ -52,7 +52,7 @@ Each common action must map to real production input; a move-only game may make 
 but it may not omit the primary-action check. Pause must visibly freeze gameplay and resume it; restart must restore a
 fresh playable state without reloading the desktop app. Keep the journey bounded and deterministic enough to replay.
 
-Only the LudoReady host owns \`artifacts/playtest/\`. The Implementer MUST NOT create, edit, copy, or fabricate
+Only the PlayReady host owns \`artifacts/playtest/\`. The Implementer MUST NOT create, edit, copy, or fabricate
 \`artifacts/playtest/latest/report.json\` or screenshots. A host report, when present, must use the same playtest
 schema version, identify the tested entrypoint and journey step IDs, and give each step a passed/failed status,
 observations, console/runtime errors, duration, and a project-relative screenshot path under
